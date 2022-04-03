@@ -62,5 +62,11 @@ namespace BookStore.Database
         {
             _dao.UpdateBook(id, bookName, bookAuthor, bookYear, bookCover, bookBuyingPrice, bookSellingPrice, bookStock, bookSold, bookCategory);
         }
+
+        public List<Book> ReadAllBook()
+        {
+            List<Book> books = _dao.ReadAllBook();
+            return books;
+        }
     }
 }

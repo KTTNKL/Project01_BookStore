@@ -154,15 +154,10 @@ namespace BookStore
                 dao.Connect();
                 // Thao tác với CSDL ở đây
                 _bus = new Business(dao);
-                int id = 2;
-                //var category = _bus.GetCategoryById(id);
-                //var book = _bus.GetBookById(id);
-                //_bus.DeleteBookById(id);
-                //_bus.DeleteCategoryById(id);
 
-                //_bus.UpdateBook(2, "Con mả con ma", "ghost", 2000, "Images/ava02.jpg", 20000, 40000, 100, 200, 1);
 
                 MessageBox.Show("Connect successfully");
+
             }
             else
             {
