@@ -8,6 +8,7 @@ namespace BookStore.Database
 {
     internal class Book
     {
+        public string id { get; set; }
         public string name { get; set; }
         public string author { get; set; }
         public int publicYear { get; set; }
@@ -31,3 +32,4 @@ namespace BookStore.Database
         }
     }
 }
+
