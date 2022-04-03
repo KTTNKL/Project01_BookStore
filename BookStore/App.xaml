@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:BookStore"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                
+                <!--//<ResourceDictionary Source="/Fluent;Component/Themes/Generic.xaml" />-->
+                <ResourceDictionary Source="/Fluent;Component/Themes/Generic.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

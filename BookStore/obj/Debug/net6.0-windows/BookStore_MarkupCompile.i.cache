@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\Project\Project01_BookStore\BookStore\App.xaml
-11407045341
+4-1241797257
 
-52027706597
-1941142463650
-MainWindow.xaml;
+8881177974
+206279869433
+MainWindow.xaml;MyUserControl\MasterDataUserControl.xaml;MyUserControl\ReportUserControl.xaml;MyUserControl\SaleUserControl.xaml;
 
 False
 
