@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\obj\Debug\net6.0-windows\
+D:\Project\Project01_BookStore\BookStore\obj\Debug\net6.0-windows\
 BookStore
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\App.xaml
+D:\Project\Project01_BookStore\BookStore\App.xaml
 4-1241797257
 
 13-139064726
-207-1364105004
+207998249165
 MainWindow.xaml;MyUserControl\MasterDataUserControl.xaml;MyUserControl\ReportUserControl.xaml;MyUserControl\SaleUserControl.xaml;
 
 False

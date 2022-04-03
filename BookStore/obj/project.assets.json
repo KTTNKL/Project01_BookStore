@@ -603,28 +603,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ky Luong\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\night\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ky Luong\\Documents\\GitHub\\Project01_BookStore\\BookStore\\BookStore.csproj",
+      "projectUniqueName": "D:\\Project\\Project01_BookStore\\BookStore\\BookStore.csproj",
       "projectName": "BookStore",
-      "projectPath": "C:\\Users\\Ky Luong\\Documents\\GitHub\\Project01_BookStore\\BookStore\\BookStore.csproj",
-      "packagesPath": "C:\\Users\\Ky Luong\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ky Luong\\Documents\\GitHub\\Project01_BookStore\\BookStore\\obj\\",
+      "projectPath": "D:\\Project\\Project01_BookStore\\BookStore\\BookStore.csproj",
+      "packagesPath": "C:\\Users\\night\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Project01_BookStore\\BookStore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ky Luong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\night\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows7.0"
@@ -676,7 +673,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
