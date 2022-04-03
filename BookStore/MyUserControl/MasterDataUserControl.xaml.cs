@@ -24,5 +24,10 @@ namespace BookStore.MyUserControl
         {
             InitializeComponent();
         }
+
+        private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
