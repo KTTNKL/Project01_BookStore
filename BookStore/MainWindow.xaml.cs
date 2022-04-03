@@ -28,6 +28,7 @@ namespace BookStore
     public partial class MainWindow : RibbonWindow
     {
         List<Category> _categories = null;
+        Business _bus = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -92,13 +93,21 @@ namespace BookStore
                     _categories.Add(cat); // Model
                 }
 
+
             }
+            _bus.deleteTable("Book");
+            _bus.deleteTable("Category");
 
             for (int i = 0; i < _categories.Count(); i++)
             {
+                _bus.insertCategory(_categories[i].Name);
+                int id = _bus.getCategoryID(_categories[i].Name);
+                MessageBox.Show(_categories[i].Name);
+
                 for (int j = 0; j < _categories[i].Books.Count(); j++)
                 {
-                    Debug.WriteLine($"{_categories[i].Books[j].name} {_categories[i].Books[j].author} {_categories[i].Books[j].publicYear} {_categories[i].Books[j].bookCover} {_categories[i].Books[j].purchasePrice} {_categories[i].Books[j].sellingPrice} {_categories[i].Books[j].stockNumer} {_categories[i].Books[j].sellingNumber}");
+
+                    _bus.insertBook(_categories[i].Books[j].name, _categories[i].Books[j].author, _categories[i].Books[j].publicYear, _categories[i].Books[j].bookCover, _categories[i].Books[j].purchasePrice, _categories[i].Books[j].sellingPrice, _categories[i].Books[j].stockNumer, _categories[i].Books[j].sellingNumber, id);
                 }
 
             }
@@ -145,7 +154,9 @@ namespace BookStore
             {
                 dao.Connect();
                 // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
 
+                
                 MessageBox.Show("Connect to db");
 
             }
