@@ -64,7 +64,4 @@ namespace BookStore.Database
         }
     }
 
-
-
-    }
 }
