@@ -19,6 +19,13 @@
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>C:\Users\Admin\Downloads\New folder (15)\Aspose.Cells.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
