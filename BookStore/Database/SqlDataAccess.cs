@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,39 @@ namespace BookStore.Database
         public void Connect()
         {
             _connection.Open();
+        }
+
+        public List<Book> ReadAllBook()
+        {
+            var sql = "select * from Book";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            // xu li
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int) reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
         }
 
         public Category GetCategoryById(int id)
