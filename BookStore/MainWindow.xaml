@@ -75,6 +75,7 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Sale">
+                
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Report">

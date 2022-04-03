@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Center" Margin="0,168,0,0" VerticalAlignment="Top" Height="104" Width="411"/>
+        <Button Content="Button" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" Height="104" Width="412"/>
 
     </Grid>
 </UserControl>
