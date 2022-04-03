@@ -54,7 +54,7 @@ namespace BookStore.MyUserControl {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookStore;component/myusercontrol/reportusercontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookStore;V1.0.0.0;component/myusercontrol/reportusercontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\MyUserControl\ReportUserControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
