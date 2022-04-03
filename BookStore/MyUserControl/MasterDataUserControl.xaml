@@ -3,11 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BookStore.MyUserControl"
+             xmlns:local="clr-namespace:BookStore.MyUserControl" xmlns:local1="clr-namespace:BookStore"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" Height="104" Width="412"/>
+    <UserControl.Resources>
+        <local1:RelativeToAbsoluteConverter x:Key="imageConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel  DockPanel.Dock="Top" Orientation="Horizontal">
+           <ComboBox SelectionChanged="categoriesComboBox_SelectionChanged" Name="categoriesComboBox" Width="100" Height="35" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding nameCategory}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-    </Grid>
+        </StackPanel>
+
+
+        <DataGrid Height="368" Name="booksListview"  ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="200" />
+                <DataGridTextColumn Header="Price" Binding="{Binding author}" />
+                <DataGridTextColumn Header="Quantity" Binding="{Binding year}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+      
+    </StackPanel>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -33,6 +33,34 @@ namespace BookStore.Database
         public int getCategoryID(string category_name)
         {
             return _dao.getIDCategory(category_name);
+
+        public Category GetCategoryById(int id)
+        {
+            Category result = _dao.GetCategoryById(id);
+
+            return result;
+        }
+
+        public Book GetBookById(int id)
+        {
+            Book result = _dao.GetBookById(id);
+
+            return result;
+        }
+
+        public void DeleteBookById(int id)
+        {
+            _dao.DeleteBookById(id);
+        }
+
+        public void DeleteCategoryById(int id)
+        {
+            _dao.DeleteCategoryById(id);
+        }
+
+        public void UpdateBook(int id, string bookName, string bookAuthor, int bookYear, string bookCover, int bookBuyingPrice, int bookSellingPrice, int bookStock, int bookSold, int bookCategory)
+        {
+            _dao.UpdateBook(id, bookName, bookAuthor, bookYear, bookCover, bookBuyingPrice, bookSellingPrice, bookStock, bookSold, bookCategory);
         }
     }
 }

@@ -62,9 +62,9 @@ namespace BookStore.Database
                 };
             }
 
+            reader.Close();
             return result;
         }
-
         public int getIDCategory(string name)
         {
             var sql = "select * from Category where category_name LIKE @CatName";
@@ -82,6 +82,44 @@ namespace BookStore.Database
             reader.Close();
             return result;
         }
+      public Book GetBookById(int id)
+        {
+            var sql = "select * from Book where book_id=@BookId";
+            var command = new SqlCommand(sql, _connection);
+
+            command.Parameters.Add("BookId", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+
+            Book result = null;
+
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                var bookID = (int)reader["book_id"];
+                var bookName = (string)reader["book_name"];
+                var bookAuthor = (string)reader["book_author"];
+                var bookYear = (int)reader["book_year"];
+                var bookCover = (string)reader["book_cover"];
+                var bookBuyingPrice = (int)reader["book_buying_price"];
+                var bookSellingPrice = (int)reader["book_selling_price"];
+                var bookStock = (int)reader["book_stock"];
+                var bookSold = (int)reader["book_sold"];
+                var bookCategory = (int)reader["book_category"];
+
+                result = new Book()
+                {
+                    id = bookID,
+                    name = bookName,
+                    author = bookAuthor,
+                    publicYear = bookYear,
+                    bookCover = bookCover,
+                    purchasePrice = bookBuyingPrice,
+                    sellingPrice = bookSellingPrice,
+                    stockNumer = bookStock,
+                    sellingNumber = bookSold,
+                    category_id = bookCategory
+
+                };
         public void deleteAllRecord(string table_name)
         {
             string sqlStatement = "DELETE FROM " + table_name;
@@ -134,7 +172,42 @@ namespace BookStore.Database
             }
 
         }
+        public void DeleteBookById(int id)
+        {
+            var sql = "delete from Book where book_id=@BookId";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("BookId", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
 
+        public void DeleteCategoryById(int id)
+        {
+            var sql = "delete from Category where category_id=@CategoryId";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("CategoryId", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
+
+        public void UpdateBook(int id, string bookName, string bookAuthor, int bookYear, string bookCover, int bookBuyingPrice, int bookSellingPrice, int bookStock, int bookSold, int bookCategory)
+        {
+            var sql = "update Book set book_name=@BookName, book_author=@BookAuthor, book_year=@BookYear, book_cover=@BookCover, book_buying_price=@BookBuyingPrice, book_selling_price=@BookSellingPrice, book_stock=@BookStock, book_sold=@BookSold, book_category=@BookCategory where book_id=@BookId";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("BookName", SqlDbType.NText).Value = bookName;
+            command.Parameters.Add("BookAuthor", SqlDbType.NText).Value = bookAuthor;
+            command.Parameters.Add("BookYear", SqlDbType.Int).Value = bookYear;
+            command.Parameters.Add("BookCover", SqlDbType.NText).Value = bookCover;
+            command.Parameters.Add("BookBuyingPrice", SqlDbType.Int).Value = bookBuyingPrice;
+            command.Parameters.Add("BookSellingPrice", SqlDbType.Int).Value = bookSellingPrice;
+            command.Parameters.Add("BookStock", SqlDbType.Int).Value = bookStock;
+            command.Parameters.Add("BookSold", SqlDbType.Int).Value = bookSold;
+            command.Parameters.Add("BookCategory", SqlDbType.Int).Value = bookCategory;
+            command.Parameters.Add("BookId", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
     }
 
 }
