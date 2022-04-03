@@ -8,5 +8,11 @@ namespace BookStore.Database
 {
     internal class Business
     {
+        SqlDataAccess _dao;
+
+        public Business(SqlDataAccess dao)
+        {
+            _dao = dao;
+        }
     }
 }

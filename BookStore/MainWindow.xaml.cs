@@ -1,4 +1,5 @@
-﻿using BookStore.MyUserControl;
+﻿using BookStore.Database;
+using BookStore.MyUserControl;
 using Fluent;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,21 @@ namespace BookStore
             new TabItem() { Content = new ReportUserControl()}
             };
             tabs.ItemsSource = screens;
+
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+
+                MessageBox.Show("Connect to db");
+
+            }
+            else
+            {
+                MessageBox.Show("Cannot connect to db");
+            }
         }
     }
 }
