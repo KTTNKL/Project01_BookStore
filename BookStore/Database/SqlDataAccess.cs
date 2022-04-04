@@ -39,6 +39,54 @@ namespace BookStore.Database
             _connection.Open();
         }
 
+        public List<Category> ReadAllCategory()
+        {
+            var sql = "select * from Category";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+
+            List<Category> categories = new List<Category>();
+            while (reader.Read())
+            {
+                Category cat = new Category()
+                {
+                    ID = (int)reader["category_id"],
+                    Name = (string)reader["category_name"],
+                    Books = new List<Book>()
+                };
+                categories.Add(cat);
+            }
+            reader.Close();
+
+            for(int i =0; i< categories.Count; ++i)
+            {
+                sql = "select * from Book where book_category=@CategoryID";
+                command = new SqlCommand(sql, _connection);
+                command.Parameters.Add("CategoryID", SqlDbType.Int).Value = categories[i].ID;
+                reader = command.ExecuteReader();
+                while(reader.Read())
+                {
+                    Book book = new Book()
+                    {
+                        id = (int)reader["book_id"],
+                        name = (string)reader["book_name"],
+                        author = (string)reader["book_author"],
+                        publicYear = (int)reader["book_year"],
+                        bookCover = (string)reader["book_cover"],
+                        purchasePrice = (int)reader["book_buying_price"],
+                        sellingPrice = (int)reader["book_selling_price"],
+                        stockNumer = (int)reader["book_stock"],
+                        sellingNumber = (int)reader["book_sold"],
+                        category_id = (int)reader["book_category"]
+                    };
+                    categories[i].Books.Add(book);
+                }
+                reader.Close();
+            }
+            return categories;
+
+        }
+
         public List<Book> ReadAllBook()
         {
             var sql = "select * from Book";
