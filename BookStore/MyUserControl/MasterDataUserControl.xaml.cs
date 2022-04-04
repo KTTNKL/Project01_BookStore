@@ -38,6 +38,12 @@ namespace BookStore.MyUserControl
             public List<Book> SelectedBooks { get; set; }
 
             public event PropertyChangedEventHandler? PropertyChanged;
+            public List<Page> Pages { get; set; }
+        }
+        class Page
+        {
+            public int currentPage { get; set; }
+            public int totalPage { get; set; }
         }
         ViewModel _vm = new ViewModel();
         int _totalItems = 0;
@@ -85,13 +91,22 @@ namespace BookStore.MyUserControl
                 //currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
-
+                _vm.Pages = new List<Page>();
+                for (int j = 0; j < _totalPages; j++)
+                {
+                    _vm.Pages.Add(new Page(){ currentPage = j, totalPage=_totalPages });
+                }
+                pagingComboBox.ItemsSource= _vm.Pages;
             }
         }
 
         private void pageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int i = pagingComboBox.SelectedIndex;
+            _currentPage=i+1;
+            _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
+            booksListview.ItemsSource = _vm.SelectedBooks;
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)
@@ -99,10 +114,12 @@ namespace BookStore.MyUserControl
             if (_currentPage < _totalPages)
             {
                 _currentPage++;
+
+                pagingComboBox.SelectedIndex = _currentPage;
+
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
-               // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
             }
         }
 
@@ -111,10 +128,11 @@ namespace BookStore.MyUserControl
             if (_currentPage > 1)
             {
                 _currentPage--;
+                pagingComboBox.SelectedIndex = _currentPage;
+
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
-               // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
             }
         }
     }
