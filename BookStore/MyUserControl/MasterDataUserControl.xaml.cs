@@ -16,13 +16,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace BookStore.MyUserControl
 {
+
     /// <summary>
     /// Interaction logic for MasterDataUserControl.xaml
     /// </summary>
     public partial class MasterDataUserControl : UserControl
     {
+        public enum MasterDataAction
+        {
+            AddNewCategory,               // Thêm mới một Loại sản phẩm
+            DeleteSelectedCategory,   // Xóa Loại sản phẩm đang được chọn
+            AddNewProduct,		  // Thêm mới một Sản phẩm
+            UpdateSelectedProduct,   // Cập nhật Sản phẩm đang được chọn
+            DeleteSelectedProduct     // Xóa Sản phẩm đang được chọn
+        };
+
         public MasterDataUserControl()
         {
             InitializeComponent();
@@ -54,11 +65,11 @@ namespace BookStore.MyUserControl
                 dao.Connect();
                 // Thao tác với CSDL ở đây
                 _bus = new Business(dao);
-                _categories= _bus.ReadAllCategory();
-                for(int i=0; i < _categories.Count; i++)
+                _categories = _bus.ReadAllCategory();
+                for (int i = 0; i < _categories.Count; i++)
                 {
                     _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
-                    for(int j=0; j < _categories[i].Books.Count; j++)
+                    for (int j = 0; j < _categories[i].Books.Count; j++)
                     {
                         Debug.WriteLine(_categories[i].Books[j].name);
                         _categories[i].Books[j].Category = _categories[i];
@@ -102,7 +113,7 @@ namespace BookStore.MyUserControl
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
-               // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
+                // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
             }
         }
 
@@ -114,8 +125,40 @@ namespace BookStore.MyUserControl
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
-               // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
+                // currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
             }
+        }
+
+        public void HandleParentEvent(MasterDataAction action)
+        {
+            switch (action)
+            {
+                case MasterDataAction.AddNewCategory:
+                    addNewCategory();
+                    break;
+            }
+        }
+
+        private void addNewCategory()
+        {
+            var screen = new AddCategoryWindow();
+            if(screen.ShowDialog() ==true)
+            {
+                var info = screen.AddedCategory;
+
+                // luu vao database
+                Business _bus = null;
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+
+                // connect database
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                _bus.insertCategory(info.Name);
+
+            }
+
         }
     }
 }

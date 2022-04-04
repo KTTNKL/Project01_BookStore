@@ -22,11 +22,22 @@ using System.Windows.Shapes;
 
 namespace BookStore
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : RibbonWindow
+
+
+
+        /// <summary>
+        /// Interaction logic for MainWindow.xaml
+        /// </summary>
+        public partial class MainWindow : RibbonWindow
     {
+
+        ObservableCollection<TabItem> screens = new ObservableCollection<TabItem>()
+             {
+            new TabItem() { Content = new MasterDataUserControl()},
+            new TabItem() { Content = new SaleUserControl()},
+            new TabItem() { Content = new ReportUserControl()}
+            };
+
         List<Category> _categories = null;
         Business _bus = null;
         public MainWindow()
@@ -120,7 +131,8 @@ namespace BookStore
 
         private void addCategorytButton_Clicked(object sender, RoutedEventArgs e)
         {
-
+            var userControl = tabs.Items[0] as MasterDataUserControl;
+            userControl.HandleParentEvent( MasterDataUserControl.MasterDataAction.AddNewCategory);
         }
 
         private void addBookButton_Clicked(object sender, RoutedEventArgs e)
@@ -139,12 +151,6 @@ namespace BookStore
         }
         private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            var screens = new ObservableCollection<TabItem>()
-             {
-            new TabItem() { Content = new MasterDataUserControl()},
-            new TabItem() { Content = new SaleUserControl()},
-            new TabItem() { Content = new ReportUserControl()}
-            };
             tabs.ItemsSource = screens;
 
             string? connectionString = AppConfig.ConnectionString();
