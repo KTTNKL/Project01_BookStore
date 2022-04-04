@@ -120,6 +120,35 @@ namespace BookStore.Database
             return books;
         }
 
+        public List<Book> GetBooksByCategoryId(int id)
+        {
+            var sql = "select * from Book where book_category=@CategoryID";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("CategoryID", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+
+            List<Book> books = new List<Book>();
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+                books.Add(book);
+            }
+            reader.Close();
+            return books;
+        }
+
         public Category GetCategoryById(int id)
         {
             var sql = "select * from Category where category_id=@CatId";
