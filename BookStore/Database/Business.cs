@@ -75,5 +75,11 @@ namespace BookStore.Database
             List<Category> categories = _dao.ReadAllCategory();
             return categories;
         }
+
+        public List<Book> GetBooksByCategoryId(int id)
+        {
+            List<Book> books = _dao.GetBooksByCategoryId(id);
+            return books;
+        }
     }
 }
