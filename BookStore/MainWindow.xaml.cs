@@ -102,7 +102,6 @@ namespace BookStore
             {
                 _bus.insertCategory(_categories[i].Name);
                 int id = _bus.getCategoryID(_categories[i].Name);
-                MessageBox.Show(_categories[i].Name);
 
                 for (int j = 0; j < _categories[i].Books.Count(); j++)
                 {

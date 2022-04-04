@@ -322,6 +322,92 @@ namespace BookStore.Database
             var reader = command.ExecuteReader();
             reader.Close();
         }
+        public int countBook()
+        {
+            var sql = "SELECT COUNT(book_id) AS NumberOfBooks FROM Book";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+
+            int result = -1;
+
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                result = (int)reader["NumberOfBooks"];
+            }
+            reader.Close();
+            return result;
+        }
+
+
+        public List<Book> countTop5OutOfStock()
+        {
+            var sql = "SELECT TOP 5 * FROM Book Where book_stock< 5 ORDER BY  book_stock ASC";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            // xu li
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
+        }
+
+        public List<Book> countOutOfStock()
+        {
+            var sql = "SELECT * FROM Book Where book_stock< 5 ORDER BY  book_stock ASC";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            // xu li
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
+        }
+
+
+
+
     }
 
 }
