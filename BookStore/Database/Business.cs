@@ -22,7 +22,6 @@ namespace BookStore.Database
         }
         public void insertCategory(string category_name)
         {
-            MessageBox.Show(category_name);
             _dao.insertCategoryRecord(category_name);
         }
 
@@ -80,6 +79,22 @@ namespace BookStore.Database
         {
             List<Book> books = _dao.GetBooksByCategoryId(id);
             return books;
+        }
+
+
+        public int countBook()
+        {
+            return _dao.countBook();
+        }
+
+        public List<Book> countTop5OutOfStock()
+        {
+            return _dao.countTop5OutOfStock();
+        }
+
+        public List<Book> countOutOfStock()
+        {
+            return _dao.countOutOfStock();
         }
     }
 }
