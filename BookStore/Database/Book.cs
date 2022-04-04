@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookStore.Database
 {
-    internal class Book
+    public class Book : INotifyPropertyChanged
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -20,6 +21,16 @@ namespace BookStore.Database
 
         public int category_id { get; set; }
 
+        public Category Category { get; set; }
+
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
         public Book(string _name, string _author, int _publicYear, string _cover, int _purchase, int _sellingPrice, int _stockNumber, int _sellingNumber)
         {
             this.name = _name;

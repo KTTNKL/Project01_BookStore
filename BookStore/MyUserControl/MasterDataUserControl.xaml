@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl" xmlns:local1="clr-namespace:BookStore"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" >
     <UserControl.Resources>
         <local1:RelativeToAbsoluteConverter x:Key="imageConverter"/>
     </UserControl.Resources>
@@ -14,7 +14,7 @@
            <ComboBox SelectionChanged="categoriesComboBox_SelectionChanged" Name="categoriesComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding nameCategory}"></TextBlock>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -24,12 +24,37 @@
 
         <DataGrid Height="368" Name="booksListview"  ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns >
+           
                 <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="200" />
-                <DataGridTextColumn Header="Price" Binding="{Binding author}" />
-                <DataGridTextColumn Header="Quantity" Binding="{Binding year}" />
+                <DataGridTextColumn Header="Author" Binding="{Binding author}" />
+                <DataGridTextColumn Header="Year" Binding="{Binding publicYear}" />
+                <DataGridTextColumn Header="Purchase Price" Binding="{Binding purchasePrice}" />
+                <DataGridTextColumn Header="Selling Price" Binding="{Binding sellingPrice}" />
+                <DataGridTextColumn Header="Selling Price" Binding="{Binding sellingPrice}" />
+                <DataGridTextColumn Header="Stock Number" Binding="{Binding stockNumer}" />
+                <DataGridTextColumn Header="Selling Number" Binding="{Binding sellingNumber}" />
             </DataGrid.Columns>
         </DataGrid>
 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button x:Name="previousButton" Width="80" Height="35" Content="&lt;" Click="previousButton_Click"/>
+
+            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pagingComboBox" Width="100" Height="35" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Page "/>
+                            <TextBlock Text="{Binding Page}"/>
+                            <TextBlock Text=" / "/>
+                            <TextBlock Text="{Binding TotalPages}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button x:Name="nextButton" Width="80" Height="35" Content="&gt;" Click="nextButton_Click"/>
+
+        </StackPanel>
       
     </StackPanel>
 </UserControl>
