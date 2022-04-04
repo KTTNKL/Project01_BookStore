@@ -115,7 +115,7 @@ namespace BookStore.Database
             reader.Close();
             return result;
         }
-      public Book GetBookById(int id)
+        public Book GetBookById(int id)
         {
             var sql = "select * from Book where book_id=@BookId";
             var command = new SqlCommand(sql, _connection);
@@ -153,6 +153,10 @@ namespace BookStore.Database
                     category_id = bookCategory
 
                 };
+            }
+            reader.Close();
+            return result;
+        }
         public void deleteAllRecord(string table_name)
         {
             string sqlStatement = "DELETE FROM " + table_name;

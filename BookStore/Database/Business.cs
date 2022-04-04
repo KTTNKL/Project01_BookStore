@@ -33,6 +33,7 @@ namespace BookStore.Database
         public int getCategoryID(string category_name)
         {
             return _dao.getIDCategory(category_name);
+        }
 
         public Category GetCategoryById(int id)
         {
