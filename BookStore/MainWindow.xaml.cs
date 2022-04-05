@@ -113,7 +113,8 @@ namespace BookStore
 
         private void deleteCategorytButton_Clicked(object sender, RoutedEventArgs e)
         {
-
+            var screen = new MasterDataUserControl();
+            screen.HandleParentEvent(MasterDataUserControl.MasterDataAction.DeleteSelectedCategory);
         }
 
         private void addCategorytButton_Clicked(object sender, RoutedEventArgs e)

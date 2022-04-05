@@ -38,12 +38,70 @@ namespace BookStore.MyUserControl
                 case MasterDataAction.AddNewCategory:
                     addNewCategory();
                     break;
+                case MasterDataAction.DeleteSelectedCategory:
+                    deleteCategory();
+                    break;
             }
         }
 
         private void addNewCategory()
         {
-            MessageBox.Show("Helo");
+            var screen = new addCategoryWindow();
+            if (screen.ShowDialog() == true)
+            {
+                var newCategory = screen.newCat;
+
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
+
+                    _bus.insertCategory(newCategory.Name);
+                    MessageBox.Show("Insert new category successfully!");
+
+                    _categories = _bus.ReadAllCategory();
+
+                    categoriesComboBox.ItemsSource = _categories;
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+        }
+
+        private void deleteCategory()
+        {
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                var _bus = new Business(dao);
+
+                _categories = _bus.ReadAllCategory();
+                var screen = new deleteCategoryWindow(_categories);
+
+                if (screen.ShowDialog() == true)
+                {
+                    var index = screen.index;
+                    _bus.DeleteCategoryById(_categories[index].ID);
+                    _categories.RemoveAt(index);
+                  
+                    MessageBox.Show("Delete category successfully!");
+                    categoriesComboBox.ItemsSource = _categories;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cannot connect to db");
+            }
+
+            
         }
 
         public MasterDataUserControl()
@@ -95,9 +153,17 @@ namespace BookStore.MyUserControl
                         _categories[i].Books[j].Category = _categories[i];
                     }
                 }
-
             }
             categoriesComboBox.ItemsSource = _categories;
+
+            //_categories.Add(new Category()
+            //{
+            //    Name = "ccccc",
+            //    ID = 1000,
+            //    Books = null
+            //});
+            //categoriesComboBox.ItemsSource = _categories;
+
             booksListview.ItemsSource = _vm.SelectedBooks;
             pageNumberComboBox.SelectedIndex = 1;
 
