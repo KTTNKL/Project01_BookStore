@@ -263,17 +263,134 @@ namespace BookStore.MyUserControl
         private void Deleted_Click(object sender, RoutedEventArgs e)
         {
             var book = booksListview.SelectedItem as Book;
-            MessageBox.Show(book.name);
+
+            var result = MessageBox.Show($"Bạn thật sự muốn xóa sách {book.name} - {book.author} - {book.publicYear}",
+                "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (MessageBoxResult.Yes == result)
+            {
+                if (categoriesComboBox.SelectedIndex < 0)
+                {
+                    categoriesComboBox.SelectedIndex = 0;
+                }
+                // Xóa sách ở các list
+                for (int i = 0; i < _categories[categoriesComboBox.SelectedIndex].Books.Count; ++i)
+                {
+                    if(_categories[categoriesComboBox.SelectedIndex].Books[i].id == book.id)
+                    {
+                        _categories[categoriesComboBox.SelectedIndex].Books.RemoveAt(i);
+                    }
+                }
+                for (int i = 0; i < _vm.Books.Count; ++i)
+                {
+                    if (_vm.Books[i].id == book.id)
+                    {
+                        _vm.Books.RemoveAt(i);
+                    }
+                }
+
+                Business _bus = null;
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                _bus.DeleteBookById(book.id);
+
+                MessageBox.Show("Xóa sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //xóa sản phẩm cuối cùng ở trang được phân
+                if (_categories[categoriesComboBox.SelectedIndex].Books.Count % _itemsPerPage == 0)
+                {
+                    _currentPage--;
+                    _totalPages--;
+                }
+                
+
+                _vm.SelectedBooks = _vm.Books
+    .Skip((_currentPage - 1) * _itemsPerPage)
+    .Take(_itemsPerPage)
+    .ToList();
+                
+                //ép cập nhật giao diện
+                booksListview.ItemsSource = _vm.SelectedBooks;
+                
+                //currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
+            }
+            else
+            {
+                // Do nothing
+            }
+
+            
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            var book = booksListview.SelectedItem as Book;
+
+            var old_cat = book.category_id;
+            var screen = new EditBookWindow(book);
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            dao.Connect();
+            // Thao tác với CSDL ở đây
+            _bus = new Business(dao);
+            Book info = null;
+            if (screen.ShowDialog() == true)
+            {
+                info = screen.EditedBook;
+                book = info;
+                MessageBox.Show(book.name);
+
+                
+                _bus.UpdateBook(book.id, book.name, book.author, book.publicYear, book.bookCover, book.purchasePrice, book.sellingPrice, book.stockNumer, book.sellingNumber, book.category_id);
+                MessageBox.Show("Cập nhật sách sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            //if(old_cat != info.category_id)
+            //{
+            //    // TODO
+            //}
+
+
+            // window loaded
+            categoriesComboBox.SelectedIndex = 0;
+
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                _categories = _bus.ReadAllCategory();
+                for (int i = 0; i < _categories.Count; i++)
+                {
+                    _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
+                    for (int j = 0; j < _categories[i].Books.Count; j++)
+                    {
+                        _categories[i].Books[j].Category = _categories[i];
+                    }
+                }
+
+            }
+            categoriesComboBox.ItemsSource = _categories;
+            booksListview.ItemsSource = _vm.SelectedBooks;
+            pageNumberComboBox.SelectedIndex = 1;
+
+            numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
+
+
 
         }
 
         private void Detail_Click(object sender, RoutedEventArgs e)
         {
-
+            var book = booksListview.SelectedItem as Book;
+            var screen = new DetailBookWindow(book);
+            if (screen.ShowDialog() == true)
+            {
+                // Do nothing
+            }
         }
     }
 }
