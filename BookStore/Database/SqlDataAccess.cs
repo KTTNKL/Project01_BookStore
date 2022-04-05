@@ -192,6 +192,83 @@ namespace BookStore.Database
             reader.Close();
             return result;
         }
+
+        public List<Book> ReadAllBookLikeName(string name, int id)
+        {
+            var sql = "select * from Book where book_name LIKE '%" +name+ "%'and book_category=@CategoryID";
+
+            var command = new SqlCommand(sql, _connection);
+            //command.Parameters.Add("BookName", SqlDbType.NText).Value = name;
+            command.Parameters.Add("CategoryID", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+            // xu li
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
+        }
+
+        public List<Book> ReadAllBookPrice(int low, int high,int id)
+        {
+            var sql = "select * from Book where book_selling_price >@low and book_selling_price< @high and book_category=@CategoryID";
+
+            var command = new SqlCommand(sql, _connection);
+            //command.Parameters.Add("BookName", SqlDbType.NText).Value = name;
+            command.Parameters.Add("low", SqlDbType.Int).Value = low;
+            command.Parameters.Add("high", SqlDbType.Int).Value = high;
+            command.Parameters.Add("CategoryID", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+            // xu li
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
+        }
+
         public Book GetBookById(int id)
         {
             var sql = "select * from Book where book_id=@BookId";

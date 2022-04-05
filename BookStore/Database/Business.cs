@@ -69,6 +69,12 @@ namespace BookStore.Database
             return books;
         }
 
+        public List<Book> ReadAllBookLikeName(string name,int id)
+        {
+            List<Book> books = _dao.ReadAllBookLikeName(name,id);
+            return books;
+        }
+
         public List<Category> ReadAllCategory()
         {
             List<Category> categories = _dao.ReadAllCategory();
@@ -95,6 +101,11 @@ namespace BookStore.Database
         public List<Book> countOutOfStock()
         {
             return _dao.countOutOfStock();
+        }
+
+        public List<Book> ReadAllBookPrice(int low, int high,int id)
+        {
+            return _dao.ReadAllBookPrice(low, high,id);
         }
     }
 }
