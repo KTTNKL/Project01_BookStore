@@ -61,16 +61,7 @@
                             <Image Source="/Icons/addBook.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
-                    <Fluent:Button Header="Edit" Click="editBookButton_Clicked">
-                        <Fluent:Button.LargeIcon>
-                            <Image Source="/Icons/editBook.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
-                    <Fluent:Button Header="Delete" Click="deleteBookButton_Clicked">
-                        <Fluent:Button.LargeIcon>
-                            <Image Source="/Icons/deleteBook.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
+                    
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
