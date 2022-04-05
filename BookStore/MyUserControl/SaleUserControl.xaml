@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Canvas Margin="353,0,0,0">
-        
+        <Button Content="Button" Canvas.Left="55" Canvas.Top="301"/>
+
     </Canvas>
 </UserControl>
