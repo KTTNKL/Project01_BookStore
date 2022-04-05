@@ -23,6 +23,10 @@ namespace BookStore.MyUserControl
     /// </summary>
     public partial class MasterDataUserControl : UserControl
     {
+
+        BindingList<Book> _list = new BindingList<Book>();
+        List<Category> _categories = new List<Category>();
+        ComboBox myCatComboBox= new ComboBox();
         public enum MasterDataAction
         {
             AddNewCategory,               // Thêm mới một Loại sản phẩm
@@ -61,10 +65,9 @@ namespace BookStore.MyUserControl
 
                     _bus.insertCategory(newCategory.Name);
                     MessageBox.Show("Insert new category successfully!");
-
-                    _categories = _bus.ReadAllCategory();
-
-                    categoriesComboBox.ItemsSource = _categories;
+                    _categories=_bus.ReadAllCategory();
+                    
+                    this.categoriesComboBox.ItemsSource= _categories;
                 }
                 else
                 {
@@ -109,9 +112,7 @@ namespace BookStore.MyUserControl
             InitializeComponent();
         }
 
-        BindingList<Book> _list = new BindingList<Book>();
-        List<Category> _categories = new List<Category>();
-
+        
 
         class ViewModel : INotifyPropertyChanged
         {
@@ -155,7 +156,7 @@ namespace BookStore.MyUserControl
                 }
             }
 
-            categoriesComboBox.ItemsSource = _categories;
+            this.categoriesComboBox.ItemsSource = _categories;
 
             //_categories.Add(new Category()
             //{
@@ -173,6 +174,8 @@ namespace BookStore.MyUserControl
 
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Debug.WriteLine("InitializeCate");
+
             int i = categoriesComboBox.SelectedIndex;
             if (i >= 0)
             {
@@ -301,23 +304,24 @@ namespace BookStore.MyUserControl
 
                 MessageBox.Show("Xóa sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                //xóa sản phẩm cuối cùng ở trang được phân
-                if (_categories[categoriesComboBox.SelectedIndex].Books.Count % _itemsPerPage == 0)
+                categoriesComboBox.SelectedIndex = currentCat;
+                int cat = currentCat;
+                if (cat >= 0)
                 {
-                    _currentPage--;
-                    _totalPages--;
+                    _currentPage = 1;
+                    _vm.Books = _categories[cat].Books;
+                    _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                    _totalItems = _vm.Books.Count;
+                    _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                    booksListview.ItemsSource = _vm.SelectedBooks;
+                    _vm.Pages = new List<Page>();
+                    for (int j = 0; j < _totalPages; j++)
+                    {
+                        _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                    }
+                    pagingComboBox.ItemsSource = _vm.Pages;
                 }
-                
 
-                _vm.SelectedBooks = _vm.Books
-    .Skip((_currentPage - 1) * _itemsPerPage)
-    .Take(_itemsPerPage)
-    .ToList();
-                
-                //ép cập nhật giao diện
-                booksListview.ItemsSource = _vm.SelectedBooks;
-                
-                //currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
             }
             else
             {
