@@ -10,84 +10,8 @@
                      Loaded="RibbonWindow_Loaded">
 
     <DockPanel LastChildFill="True">
-        <Fluent:Ribbon x:Name="ribbon" DockPanel.Dock="Top">
-            
-            
-            <Fluent:Ribbon.Menu>
-                <Fluent:Backstage Header="File">
-                    <Fluent:BackstageTabControl>
-                        <Fluent:BackstageTabItem Header="Info">
-                            <Label Content="19127312 - Ngô Nguyễn Kiết Tường"/>
-                            
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="Exit" 
-                             MouseLeftButtonDown="exitMenu_MouseLeftButtonDown"/>
-                    </Fluent:BackstageTabControl>
-
-                </Fluent:Backstage>
-            </Fluent:Ribbon.Menu>
-            
-            
-            
-            
-            <Fluent:RibbonTabItem Header="Master data">
-                
-                <Fluent:RibbonGroupBox Header="Import">
-                    <Fluent:Button Header="Excel" Click="excelImportButton_Clicked">
-                        <Fluent:Button.LargeIcon >
-                            <Image Source="/Icons/excel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
-                </Fluent:RibbonGroupBox>
-                
-                
-                
-                <Fluent:RibbonGroupBox Header="Category">
-                    <Fluent:Button Header="Add" Click="addCategorytButton_Clicked">
-                        <Fluent:Button.LargeIcon>
-                            <Image Source="/Icons/plus.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
-                    <Fluent:Button Header="Delete" Click="deleteCategorytButton_Clicked">
-                        <Fluent:Button.LargeIcon>
-                            <Image Source="/Icons/delete.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="Book">
-                    <Fluent:Button Header="Add" Click="addBookButton_Clicked">
-                        <Fluent:Button.LargeIcon>
-                            <Image Source="/Icons/addBook.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </Fluent:Button.LargeIcon>
-                    </Fluent:Button>
-                    
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-
-            <Fluent:RibbonTabItem Header="Sale">
-                
-            </Fluent:RibbonTabItem>
-
-            <Fluent:RibbonTabItem Header="Report">
-            </Fluent:RibbonTabItem>
-
-
-        </Fluent:Ribbon>
-        <TabControl Name="tabs" BorderThickness="0"
-                    SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem">
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-
-            
+       
+        <TabControl Name="tabs" SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}">
         </TabControl>
     </DockPanel>
 
