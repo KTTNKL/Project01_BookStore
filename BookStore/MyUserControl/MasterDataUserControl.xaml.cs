@@ -192,5 +192,22 @@ namespace BookStore.MyUserControl
             pagingComboBox.ItemsSource = _vm.Pages;
 
         }
+
+
+        private void Deleted_Click(object sender, RoutedEventArgs e)
+        {
+            var book = booksListview.SelectedItem as Book;
+            MessageBox.Show(book.name);
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
