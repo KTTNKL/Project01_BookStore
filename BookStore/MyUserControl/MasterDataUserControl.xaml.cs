@@ -23,6 +23,29 @@ namespace BookStore.MyUserControl
     /// </summary>
     public partial class MasterDataUserControl : UserControl
     {
+        public enum MasterDataAction
+        {
+            AddNewCategory,               // Thêm mới một Loại sản phẩm
+            DeleteSelectedCategory,   // Xóa Loại sản phẩm đang được chọn
+            AddNewProduct,		  // Thêm mới một Sản phẩm
+            UpdateSelectedProduct,   // Cập nhật Sản phẩm đang được chọn
+            DeleteSelectedProduct     // Xóa Sản phẩm đang được chọn
+        };
+        public void HandleParentEvent(MasterDataAction action)
+        {
+            switch (action)
+            {
+                case MasterDataAction.AddNewCategory:
+                    addNewCategory();
+                    break;
+            }
+        }
+
+        private void addNewCategory()
+        {
+            MessageBox.Show("Helo");
+        }
+
         public MasterDataUserControl()
         {
             InitializeComponent();
@@ -50,8 +73,11 @@ namespace BookStore.MyUserControl
         int _totalPages = 0;
         int _currentPage = 1;
         int _itemsPerPage = 10;
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            categoriesComboBox.SelectedIndex = 0;
+
             Business _bus = null;
             string? connectionString = AppConfig.ConnectionString();
             var dao = new SqlDataAccess(connectionString!);
@@ -66,7 +92,6 @@ namespace BookStore.MyUserControl
                     _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
                     for(int j=0; j < _categories[i].Books.Count; j++)
                     {
-                        Debug.WriteLine(_categories[i].Books[j].name);
                         _categories[i].Books[j].Category = _categories[i];
                     }
                 }
@@ -74,6 +99,9 @@ namespace BookStore.MyUserControl
             }
             categoriesComboBox.ItemsSource = _categories;
             booksListview.ItemsSource = _vm.SelectedBooks;
+            pageNumberComboBox.SelectedIndex = 1;
+
+            numberOfBookTextBlock.Text= "Số lượng sách :"+_bus.countBook().ToString();
         }
 
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,13 +116,12 @@ namespace BookStore.MyUserControl
                 _totalItems = _vm.Books.Count;
                 _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
 
-                //currentPagingTextBlock.Text = $"{_currentPage}/{_totalPages}";
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
                 _vm.Pages = new List<Page>();
                 for (int j = 0; j < _totalPages; j++)
                 {
-                    _vm.Pages.Add(new Page(){ currentPage = j, totalPage=_totalPages });
+                    _vm.Pages.Add(new Page(){ currentPage = j+1, totalPage=_totalPages });
                 }
                 pagingComboBox.ItemsSource= _vm.Pages;
             }
@@ -115,7 +142,7 @@ namespace BookStore.MyUserControl
             {
                 _currentPage++;
 
-                pagingComboBox.SelectedIndex = _currentPage;
+                pagingComboBox.SelectedIndex = _currentPage-1;
 
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
@@ -128,12 +155,42 @@ namespace BookStore.MyUserControl
             if (_currentPage > 1)
             {
                 _currentPage--;
-                pagingComboBox.SelectedIndex = _currentPage;
+                pagingComboBox.SelectedIndex = _currentPage-1;
 
                 _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
 
                 booksListview.ItemsSource = _vm.SelectedBooks;
             }
+        }
+
+        private void pageNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int i = pageNumberComboBox.SelectedIndex;
+            if (i == 0)
+            {
+                _itemsPerPage = 5;
+            }
+            else {
+                _itemsPerPage = 10;
+            }
+            _currentPage = 1;
+            if (categoriesComboBox.SelectedIndex < 0)
+            {
+                categoriesComboBox.SelectedIndex = 0;
+            }
+            _vm.Books = _categories[categoriesComboBox.SelectedIndex].Books;
+            _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+            _totalItems = _vm.Books.Count;
+            _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+
+            booksListview.ItemsSource = _vm.SelectedBooks;
+            _vm.Pages = new List<Page>();
+            for (int j = 0; j < _totalPages; j++)
+            {
+                _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+            }
+            pagingComboBox.ItemsSource = _vm.Pages;
+
         }
     }
 }

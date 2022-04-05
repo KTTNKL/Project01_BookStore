@@ -41,9 +41,10 @@ namespace BookStore
                 var password = Encoding.UTF8.GetString(passwordInBytes);
                 MessageBox.Show("Last Login:" + AppConfig.GetValue(AppConfig.Username) + "," + password);
                 var screen = new MainWindow();
-                screen.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                screen.Owner = this;
+                
                 screen.Show();
+
+                this.Close();
             }
             catch (Exception ex)
             {

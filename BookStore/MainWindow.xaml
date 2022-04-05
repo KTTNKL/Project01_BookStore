@@ -6,11 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="550" Width="800"
                      Loaded="RibbonWindow_Loaded">
 
     <DockPanel LastChildFill="True">
-        <Fluent:Ribbon DockPanel.Dock="Top">
+        <Fluent:Ribbon x:Name="ribbon" DockPanel.Dock="Top">
             
             
             <Fluent:Ribbon.Menu>
@@ -85,7 +85,7 @@
         </Fluent:Ribbon>
         <TabControl Name="tabs" BorderThickness="0"
                     SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}">
-            <!--<TabControl.Resources>
+            <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
                         <Setter.Value>
@@ -94,7 +94,9 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </TabControl.Resources>-->
+            </TabControl.Resources>
+
+            
         </TabControl>
     </DockPanel>
 

@@ -50,7 +50,6 @@ namespace BookStore
             if (screen.ShowDialog() == true)
             {
                 string filename = screen.FileName;
-                Debug.WriteLine(filename);
 
                 var workbook = new Workbook(filename);
 
@@ -119,6 +118,8 @@ namespace BookStore
 
         private void addCategorytButton_Clicked(object sender, RoutedEventArgs e)
         {
+            var screen = new MasterDataUserControl();
+            screen.HandleParentEvent(MasterDataUserControl.MasterDataAction.AddNewCategory);
 
         }
 
