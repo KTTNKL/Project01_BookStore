@@ -58,41 +58,40 @@ namespace BookStore.MyUserControl
         int currentCat = -1;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            categoriesComboBox.SelectedIndex = 0;
-
-            Business _bus = null;
-            string? connectionString = AppConfig.ConnectionString();
-            var dao = new SqlDataAccess(connectionString!);
-            if (dao.CanConnect())
+            try
             {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                _bus = new Business(dao);
-                _categories= _bus.ReadAllCategory();
-                for(int i=0; i < _categories.Count; i++)
+                categoriesComboBox.SelectedIndex = 0;
+
+                Business _bus = null;
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
                 {
-                    _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
-                    for(int j=0; j < _categories[i].Books.Count; j++)
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    _bus = new Business(dao);
+                    _categories = _bus.ReadAllCategory();
+                    for (int i = 0; i < _categories.Count; i++)
                     {
-                        _categories[i].Books[j].Category = _categories[i];
+                        _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
+                        for (int j = 0; j < _categories[i].Books.Count; j++)
+                        {
+                            _categories[i].Books[j].Category = _categories[i];
+                        }
                     }
                 }
+
+                this.categoriesComboBox.ItemsSource = _categories;
+
+                booksListview.ItemsSource = _vm.SelectedBooks;
+                pageNumberComboBox.SelectedIndex = 1;
+                if (_bus != null) { 
+                numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Cannot connect to database");
             }
-
-            this.categoriesComboBox.ItemsSource = _categories;
-
-            //_categories.Add(new Category()
-            //{
-            //    Name = "ccccc",
-            //    ID = 1000,
-            //    Books = null
-            //});
-            //categoriesComboBox.ItemsSource = _categories;
-
-            booksListview.ItemsSource = _vm.SelectedBooks;
-            pageNumberComboBox.SelectedIndex = 1;
-
-            numberOfBookTextBlock.Text= "Số lượng sách :"+_bus.countBook().ToString();
         }
 
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -159,32 +158,38 @@ namespace BookStore.MyUserControl
 
         private void pageNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int i = pageNumberComboBox.SelectedIndex;
-            if (i == 0)
+            try
             {
-                _itemsPerPage = 5;
-            }
-            else {
-                _itemsPerPage = 10;
-            }
-            _currentPage = 1;
-            if (categoriesComboBox.SelectedIndex < 0)
-            {
-                categoriesComboBox.SelectedIndex = 0;
-            }
-            _vm.Books = _categories[categoriesComboBox.SelectedIndex].Books;
-            _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
-            _totalItems = _vm.Books.Count;
-            _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                int i = pageNumberComboBox.SelectedIndex;
+                if (i == 0)
+                {
+                    _itemsPerPage = 5;
+                }
+                else
+                {
+                    _itemsPerPage = 10;
+                }
+                _currentPage = 1;
+                if (categoriesComboBox.SelectedIndex < 0)
+                {
+                    categoriesComboBox.SelectedIndex = 0;
+                }
+                _vm.Books = _categories[categoriesComboBox.SelectedIndex].Books;
+                _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                _totalItems = _vm.Books.Count;
+                _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
 
-            booksListview.ItemsSource = _vm.SelectedBooks;
-            _vm.Pages = new List<Page>();
-            for (int j = 0; j < _totalPages; j++)
+                booksListview.ItemsSource = _vm.SelectedBooks;
+                _vm.Pages = new List<Page>();
+                for (int j = 0; j < _totalPages; j++)
+                {
+                    _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                }
+                pagingComboBox.ItemsSource = _vm.Pages;
+            } catch (Exception ex)
             {
-                _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                MessageBox.Show("Cannot connect to database");
             }
-            pagingComboBox.ItemsSource = _vm.Pages;
-
         }
 
 

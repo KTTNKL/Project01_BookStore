@@ -39,7 +39,7 @@ namespace BookStore
                     entropyTextInBytes, DataProtectionScope.CurrentUser);
 
                 var password = Encoding.UTF8.GetString(passwordInBytes);
-                MessageBox.Show("Last Login:" + AppConfig.GetValue(AppConfig.Username) + "," + password);
+                //MessageBox.Show("Last Login:" + AppConfig.GetValue(AppConfig.Username) + "," + password);
                 var screen = new MainWindow();
                 
                 screen.Show();
