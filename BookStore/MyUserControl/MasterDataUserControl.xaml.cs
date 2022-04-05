@@ -131,7 +131,7 @@ namespace BookStore.MyUserControl
         int _totalPages = 0;
         int _currentPage = 1;
         int _itemsPerPage = 10;
-        
+        int currentCat = -1;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             categoriesComboBox.SelectedIndex = 0;
@@ -154,6 +154,7 @@ namespace BookStore.MyUserControl
                     }
                 }
             }
+
             categoriesComboBox.ItemsSource = _categories;
 
             //_categories.Add(new Category()
@@ -175,6 +176,7 @@ namespace BookStore.MyUserControl
             int i = categoriesComboBox.SelectedIndex;
             if (i >= 0)
             {
+                currentCat = i;
                 _currentPage = 1;
 
                 _vm.Books = _categories[i].Books;
@@ -391,6 +393,99 @@ namespace BookStore.MyUserControl
             {
                 // Do nothing
             }
+        }
+        
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            var name= SearchTextBox.Text.Trim();
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            var sum = 0;
+            booksListview.ItemsSource = null;
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                _categories = _bus.ReadAllCategory();
+                for (int i = 0; i < _categories.Count; i++)
+                {
+                    _categories[i].Books = _bus.ReadAllBookLikeName(name,_categories[i].ID);
+                    sum += _categories[i].Books.Count;
+                    for (int j = 0; j < _categories[i].Books.Count; j++)
+                    {
+                        _categories[i].Books[j].Category = _categories[i];
+                    }
+                }
+
+            }
+            categoriesComboBox.SelectedIndex =  currentCat;
+            int cat = currentCat;
+            if (cat >= 0)
+            {
+                _currentPage = 1;
+                _vm.Books = _categories[cat].Books;
+                _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                _totalItems = _vm.Books.Count;
+                _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                booksListview.ItemsSource = _vm.SelectedBooks;
+                _vm.Pages = new List<Page>();
+                for (int j = 0; j < _totalPages; j++)
+                {
+                    _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                }
+                pagingComboBox.ItemsSource = _vm.Pages;
+            }
+            numberOfBookTextBlock.Text = "Số lượng sách :" +sum.ToString();
+
+        }
+
+        private void SearchPrice_Click(object sender, RoutedEventArgs e)
+        {
+            var low = Int32.Parse(lowPrice.Text);
+            var high= Int32.Parse(highPrice.Text);
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            var sum = 0;
+            booksListview.ItemsSource = null;
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                _categories = _bus.ReadAllCategory();
+                for (int i = 0; i < _categories.Count; i++)
+                {
+                    _categories[i].Books = _bus.ReadAllBookPrice(low,high, _categories[i].ID);
+                    sum += _categories[i].Books.Count;
+                    for (int j = 0; j < _categories[i].Books.Count; j++)
+                    {
+                        _categories[i].Books[j].Category = _categories[i];
+                    }
+                }
+
+            }
+            categoriesComboBox.SelectedIndex = currentCat;
+            int cat = currentCat;
+            if (cat >= 0)
+            {
+                _currentPage = 1;
+                _vm.Books = _categories[cat].Books;
+                _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                _totalItems = _vm.Books.Count;
+                _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                booksListview.ItemsSource = _vm.SelectedBooks;
+                _vm.Pages = new List<Page>();
+                for (int j = 0; j < _totalPages; j++)
+                {
+                    _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                }
+                pagingComboBox.ItemsSource = _vm.Pages;
+            }
+            numberOfBookTextBlock.Text = "Số lượng sách :" + sum.ToString();
+
         }
     }
 }
