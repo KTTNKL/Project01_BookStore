@@ -1,4 +1,6 @@
-﻿using BookStore.Database;
+﻿using Aspose.Cells;
+using BookStore.Database;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,86 +28,7 @@ namespace BookStore.MyUserControl
 
         BindingList<Book> _list = new BindingList<Book>();
         List<Category> _categories = new List<Category>();
-        ComboBox myCatComboBox= new ComboBox();
-        public enum MasterDataAction
-        {
-            AddNewCategory,               // Thêm mới một Loại sản phẩm
-            DeleteSelectedCategory,   // Xóa Loại sản phẩm đang được chọn
-            AddNewProduct,		  // Thêm mới một Sản phẩm
-            UpdateSelectedProduct,   // Cập nhật Sản phẩm đang được chọn
-            DeleteSelectedProduct     // Xóa Sản phẩm đang được chọn
-        };
-        public void HandleParentEvent(MasterDataAction action)
-        {
-            switch (action)
-            {
-                case MasterDataAction.AddNewCategory:
-                    addNewCategory();
-                    break;
-                case MasterDataAction.DeleteSelectedCategory:
-                    deleteCategory();
-                    break;
-            }
-        }
-
-        private void addNewCategory()
-        {
-            var screen = new addCategoryWindow();
-            if (screen.ShowDialog() == true)
-            {
-                var newCategory = screen.newCat;
-
-                string? connectionString = AppConfig.ConnectionString();
-                var dao = new SqlDataAccess(connectionString!);
-                if (dao.CanConnect())
-                {
-                    dao.Connect();
-                    // Thao tác với CSDL ở đây
-                    var _bus = new Business(dao);
-
-                    _bus.insertCategory(newCategory.Name);
-                    MessageBox.Show("Insert new category successfully!");
-                    _categories=_bus.ReadAllCategory();
-                    
-                    this.categoriesComboBox.ItemsSource= _categories;
-                }
-                else
-                {
-                    MessageBox.Show("Cannot connect to db");
-                }
-            }
-        }
-
-        private void deleteCategory()
-        {
-            string? connectionString = AppConfig.ConnectionString();
-            var dao = new SqlDataAccess(connectionString!);
-            if (dao.CanConnect())
-            {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                var _bus = new Business(dao);
-
-                _categories = _bus.ReadAllCategory();
-                var screen = new deleteCategoryWindow(_categories);
-
-                if (screen.ShowDialog() == true)
-                {
-                    var index = screen.index;
-                    _bus.DeleteCategoryById(_categories[index].ID);
-                    _categories.RemoveAt(index);
-                  
-                    MessageBox.Show("Delete category successfully!");
-                    categoriesComboBox.ItemsSource = _categories;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Cannot connect to db");
-            }
-
-            
-        }
+   
 
         public MasterDataUserControl()
         {
@@ -490,6 +413,144 @@ namespace BookStore.MyUserControl
             }
             numberOfBookTextBlock.Text = "Số lượng sách :" + sum.ToString();
 
+        }
+
+        private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new addCategoryWindow();
+            if (screen.ShowDialog() == true)
+            {
+                var newCategory = screen.newCat;
+
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
+
+                    _bus.insertCategory(newCategory.Name);
+                    MessageBox.Show("Insert new category successfully!");
+                    _categories = _bus.ReadAllCategory();
+
+                    this.categoriesComboBox.ItemsSource = _categories;
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+        }
+
+        private void DeleteCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                var _bus = new Business(dao);
+
+                _categories = _bus.ReadAllCategory();
+                var screen = new deleteCategoryWindow(_categories);
+
+                if (screen.ShowDialog() == true)
+                {
+                    var index = screen.index;
+                    _bus.DeleteCategoryById(_categories[index].ID);
+                    _categories.RemoveAt(index);
+
+                    MessageBox.Show("Delete category successfully!");
+                    categoriesComboBox.ItemsSource = _categories;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cannot connect to db");
+            }
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                _bus = new Business(dao);
+            }
+          
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            _categories = new List<Category>();
+
+            var screen = new OpenFileDialog();
+
+            if (screen.ShowDialog() == true)
+            {
+                string filename = screen.FileName;
+
+                var workbook = new Workbook(filename);
+
+                var tabs = workbook.Worksheets;
+                // In ra các tab để debug
+                foreach (var tab in tabs)
+                {
+                    Category cat = new Category()
+                    {
+                        Name = tab.Name,
+                        Books = new List<Book>()
+                    };
+
+                    // Bắt đầu từ ô B3
+                    var column = 'C';
+                    var row = 4;
+
+                    var cell = tab.Cells[$"{column}{row}"];
+
+                    while (cell.Value != null)
+                    {
+                        string name = cell.StringValue;
+                        string author = tab.Cells[$"D{row}"].StringValue;
+                        int publicYear = tab.Cells[$"E{row}"].IntValue;
+                        string bookCover = tab.Cells[$"F{row}"].StringValue;
+                        int purchasePrice = tab.Cells[$"G{row}"].IntValue;
+                        int sellingPrice = tab.Cells[$"H{row}"].IntValue;
+                        int stockNumer = tab.Cells[$"I{row}"].IntValue;
+                        int sellingNumber = tab.Cells[$"J{row}"].IntValue;
+
+                        Console.WriteLine(bookCover);
+
+                        var p = new Book(name, author, publicYear, bookCover, purchasePrice, sellingPrice, stockNumer, sellingNumber);
+                        cat.Books.Add(p);
+
+                        row++;
+                        cell = tab.Cells[$"{column}{row}"];
+                    }
+
+                    _categories.Add(cat); // Model
+                }
+
+
+            }
+            _bus.deleteTable("Book");
+            _bus.deleteTable("Category");
+
+            for (int i = 0; i < _categories.Count(); i++)
+            {
+                _bus.insertCategory(_categories[i].Name);
+                int id = _bus.getCategoryID(_categories[i].Name);
+
+                for (int j = 0; j < _categories[i].Books.Count(); j++)
+                {
+
+                    _bus.insertBook(_categories[i].Books[j].name, _categories[i].Books[j].author, _categories[i].Books[j].publicYear, _categories[i].Books[j].bookCover, _categories[i].Books[j].purchasePrice, _categories[i].Books[j].sellingPrice, _categories[i].Books[j].stockNumer, _categories[i].Books[j].sellingNumber, id);
+                }
+
+            }
         }
     }
 }

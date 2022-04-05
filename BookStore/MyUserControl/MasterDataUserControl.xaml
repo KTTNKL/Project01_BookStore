@@ -11,6 +11,12 @@
     </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">
+            <Button Name="Import" Click="Import_Click" Content="Import Excel" Width="100" Height="50"/>
+            <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
+            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock"></TextBlock>
 
         </StackPanel>
