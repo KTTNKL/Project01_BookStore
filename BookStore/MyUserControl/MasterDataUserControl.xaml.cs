@@ -231,6 +231,7 @@ namespace BookStore.MyUserControl
                 _bus.DeleteBookById(book.id);
 
                 MessageBox.Show("Xóa sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
 
                 categoriesComboBox.SelectedIndex = currentCat;
                 int cat = currentCat;
@@ -276,20 +277,66 @@ namespace BookStore.MyUserControl
             {
                 info = screen.EditedBook;
                 book = info;
-                MessageBox.Show(book.name);
-
                 
                 _bus.UpdateBook(book.id, book.name, book.author, book.publicYear, book.bookCover, book.purchasePrice, book.sellingPrice, book.stockNumer, book.sellingNumber, book.category_id);
                 MessageBox.Show("Cập nhật sách sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Console.WriteLine("Trước khi xóa");
+                for (int i = 0; i < _categories.Count; ++i)
+                {
+                    if (_categories[i].ID == old_cat)
+                    {
+                        for (int j = 0; j < _categories[i].Books.Count; ++j)
+                        {
+                            Console.WriteLine(_categories[i].Books[j].name);
+                        }
+                    }
+                }
+
+                if (old_cat != info.category_id)
+                {
+
+
+                    MessageBox.Show(old_cat.ToString());
+                    MessageBox.Show(info.category_id.ToString());
+                    for (int i =0; i <_categories.Count; ++i)
+                    {
+                        if (_categories[i].ID == old_cat)
+                        {
+                            for (int j = 0; j < _categories[i].Books.Count; ++j)
+                            {
+                                if (_categories[i].Books[j].id == info.id)
+                                {
+                                    MessageBox.Show(_categories[i].Books[j].name);
+                                    _categories[i].Books.RemoveAt(j);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+
+
+
+
+                    for (int i = 0; i < _categories.Count; ++i)
+                    {
+                        if (_categories[i].ID == book.category_id)
+                        {
+                            _categories[i].Books.Add(info);
+                        }
+                    }
+
+
+
+
+                }
             }
-            //if(old_cat != info.category_id)
-            //{
-            //    // TODO
-            //}
+
+
 
 
             // window loaded
-            categoriesComboBox.SelectedIndex = 0;
 
             if (dao.CanConnect())
             {
@@ -310,6 +357,8 @@ namespace BookStore.MyUserControl
             categoriesComboBox.ItemsSource = _categories;
             booksListview.ItemsSource = _vm.SelectedBooks;
             pageNumberComboBox.SelectedIndex = 1;
+            categoriesComboBox.SelectedIndex = currentCat;
+
 
             numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
 
