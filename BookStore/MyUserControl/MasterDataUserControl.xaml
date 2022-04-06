@@ -13,7 +13,8 @@
         <StackPanel Orientation="Horizontal">
             <Button Name="Import" Click="Import_Click" Content="Import Excel" Width="100" Height="50"/>
             <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
-            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
+            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Delete Category" Width="100" Height="50"/>
+            <Button Name="UpdateCategoryButton" Click="UpdateCategoryButton_Click" Content="Update Category" Width="100" Height="50"/>
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">

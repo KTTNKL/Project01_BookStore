@@ -107,5 +107,10 @@ namespace BookStore.Database
         {
             return _dao.ReadAllBookPrice(low, high,id);
         }
+
+        public void updateNameCategoryByID(int id, string name)
+        {
+            _dao.updateNameCategoryByID(id, name);
+        }
     }
 }
