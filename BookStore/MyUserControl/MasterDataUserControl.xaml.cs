@@ -557,5 +557,32 @@ namespace BookStore.MyUserControl
 
             }
         }
+
+        private void UpdateCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                var _bus = new Business(dao);
+
+                _categories = _bus.ReadAllCategory();
+                var screen = new UpdateCategoryWindow(_categories);
+
+                if (screen.ShowDialog() == true)
+                {
+                    var temp = screen.newCat;
+                    _bus.updateNameCategoryByID(temp.ID, temp.Name);
+
+                    categoriesComboBox.ItemsSource = _categories;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cannot connect to db");
+            }
+        }
     }
 }
