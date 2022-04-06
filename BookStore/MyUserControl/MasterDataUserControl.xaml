@@ -10,18 +10,26 @@
         <local1:RelativeToAbsoluteConverter x:Key="imageConverter"/>
     </UserControl.Resources>
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Margin="5" Orientation="Horizontal">
             <Button Name="Import" Click="Import_Click" Content="Import Excel" Width="100" Height="50"/>
             <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
             <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Delete Category" Width="100" Height="50"/>
             <Button Name="UpdateCategoryButton" Click="UpdateCategoryButton_Click" Content="Update Category" Width="100" Height="50"/>
+          
+            <Button Margin="120,0,0,0" x:Name="reset" Click="reset_Click" Content="Reset" Width="100" Height="50"></Button>
+            <Button x:Name="Top5" Click="Top5_Click" Content="Top 5 sản phẩm hết hàng" Width="150" Height="50"></Button>
+            <Button x:Name="sanPhamHetHangButton" Click="sanPhamHetHangButton_Click" Content="Danh sách sản phẩm hết hàng" Width="170" Height="50"></Button>
+
+          
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock"></TextBlock>
-
+            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock" Width="150"></TextBlock>
+            <TextBlock Margin="465,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tìm sách"></TextBlock>
+            <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="120"/>
+            <Button Click="Search_Click" Content="Search" Name="SearchButton"  Width="50"></Button>
         </StackPanel>
-        <StackPanel  Orientation="Horizontal">
+        <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
             <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Thể loại"></TextBlock>
            <ComboBox SelectionChanged="categoriesComboBox_SelectionChanged" Name="categoriesComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
@@ -35,10 +43,9 @@
                 <ComboBoxItem>5</ComboBoxItem>
                 <ComboBoxItem>10</ComboBoxItem>
             </ComboBox>
-            <TextBox Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="120"/>
-            <Button Click="Search_Click" Content="Search" Name="SearchButton"  Width="50"></Button>
-            
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ"></TextBlock>
+
+
+            <TextBlock Margin="185,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ"></TextBlock>
             <TextBox Padding="8" TextWrapping="Wrap"  Name="lowPrice" Width="120"/>
             <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="tới"></TextBlock>
             <TextBox Padding="8" TextWrapping="Wrap"  Name="highPrice" Width="120"/>
