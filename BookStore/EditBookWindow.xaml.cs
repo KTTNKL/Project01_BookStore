@@ -48,8 +48,6 @@ namespace BookStore
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cat = (Category)categoriesComboBox.SelectedItem;
-
-            MessageBox.Show(cat.ID.ToString());
             EditedBook.Category.ID = cat.ID;
             EditedBook.Category.Name = cat.Name;
             EditedBook.category_id = cat.ID;

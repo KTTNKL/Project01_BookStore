@@ -5,9 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas Margin="353,0,0,0">
-        <Button Content="Button" Canvas.Left="55" Canvas.Top="301"/>
+             d:DesignHeight="450" d:DesignWidth="850">
+    <Canvas>
+        <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
+            <Button Name="viewOrder" Click="viewDetail_Click" Content="View Detail" Width="100" Height="50"/>
+            <Button Name="addNewOrder" Click="addNewOrder_Click" Content="Add Order" Width="100" Height="50"/>
+            <Button Name="deleteOrder" Click="deleteOrder_Click" Content="Delete Order" Width="100" Height="50"/>
+            <Button Name="editOrder" Click="editOrder_Click" Content="Update Order" Width="100" Height="50"/>
+        </StackPanel>
+
+        <ListView Margin="10" Name="bookComboBox" Height="342" Canvas.Top="54" Width="833">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Customer" Width="150" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Tel" Width="100" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Address" Width="100" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Order ID" Width="150" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding ?}" />
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <StackPanel Orientation="Horizontal" Canvas.Left="295" Canvas.Top="415" >
+            <Button x:Name="previousButton" Width="80" Height="35" Content="&lt;" Click="previousButton_Click"/>
+
+            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pagingComboBox" Width="100" Height="35" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page "/>
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ?}"/>
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text=" / "/>
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ?}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button x:Name="nextButton" Width="80" Height="35" Content="&gt;" Click="nextButton_Click"/>
+
+        </StackPanel>
 
     </Canvas>
 </UserControl>

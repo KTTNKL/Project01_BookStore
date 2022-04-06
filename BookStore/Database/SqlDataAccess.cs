@@ -482,7 +482,14 @@ namespace BookStore.Database
             return books;
         }
 
-
+        public void updateNameCategoryByID(int id, string name)
+        {
+            var sql = "UPDATE Category SET category_name = '" + name + "' WHERE category_id = @id; ";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("id", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
 
 
     }

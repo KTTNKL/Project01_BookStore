@@ -25,6 +25,39 @@ namespace BookStore.MyUserControl
             InitializeComponent();
         }
 
-       
+        private void viewDetail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void previousButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
