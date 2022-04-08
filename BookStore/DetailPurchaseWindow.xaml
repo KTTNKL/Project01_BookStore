@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookStore.DetailPurchaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore"
+        mc:Ignorable="d"
+        Title="DetailPurchaseWindow" Height="450" Width="800">
+    <Canvas>
+        <ListView Margin="10" Name="detailComboBox" Height="342" Canvas.Top="46" Width="833">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="150" DisplayMemberBinding="{Binding book_id }" />
+                    <GridViewColumn Header="quantity" Width="100" DisplayMemberBinding="{Binding quantity }" />
+                    <GridViewColumn Header="price" Width="150" DisplayMemberBinding="{Binding price }" />
+                    <GridViewColumn Header="total" Width="150" DisplayMemberBinding="{Binding total }" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Canvas>
+</Window>

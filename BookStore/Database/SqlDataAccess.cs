@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -491,6 +492,57 @@ namespace BookStore.Database
             reader.Close();
         }
 
+        public BindingList<Purchase> ReadAllPurchase()
+        {
+            var sql = "select * from Purchase";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+
+            BindingList<Purchase> purchases = new BindingList<Purchase>();
+            while (reader.Read())
+            {
+                Purchase pur = new Purchase()
+                {
+                    id = (int)reader["purchase_id"],
+                    customerName = (String)reader["customer_name"],
+                    tel = (String)reader["customer_tel"],
+                    address = (String)reader["customer_address"],
+                    total = (int)reader["purchase_final_total"],
+                    date = (String)reader["purchase_created_at"],
+                    status = (String)reader["purchase_status"],
+                };
+                purchases.Add(pur);
+            }
+            reader.Close();
+            return purchases;
+
+        }
+        public List<PurchaseDetail> getAllDetailOrder(int purchaseID)
+        {
+            var sql = "select* from PurchaseDetail where purchase_id=@id";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("id", SqlDbType.Int).Value = purchaseID;
+
+            var reader = command.ExecuteReader();
+
+            List<PurchaseDetail> result = new List<PurchaseDetail>();
+            while (reader.Read())
+            {
+                PurchaseDetail pur = new PurchaseDetail()
+                {
+                    purchasedetail_id = (int)reader["purchasedetail_id"],
+                    purchase_id = (int)reader["purchase_id"],
+                    book_id = (int)reader["book_id"],
+                    quantity = (int)reader["purchasedetail_quantity"],
+                    price = (int)reader["purchasedetail_price"],
+                    total = (int)reader["purchasedetail_total"],
+                };
+                result.Add(pur);
+            }
+            reader.Close();
+            return result;
+
+        }
 
     }
 
