@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -111,6 +112,16 @@ namespace BookStore.Database
         public void updateNameCategoryByID(int id, string name)
         {
             _dao.updateNameCategoryByID(id, name);
+        }
+
+        public BindingList<Purchase> ReadAllPurchase()
+        {
+            return _dao.ReadAllPurchase();
+        }
+
+        public List<PurchaseDetail> getAllDetailOrder(int id)
+        {
+            return _dao.getAllDetailOrder(id);
         }
     }
 }

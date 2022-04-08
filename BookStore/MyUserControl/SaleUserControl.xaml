@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="850">
+             d:DesignHeight="450" d:DesignWidth="850" Loaded="Sale_Loaded">
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
             <Button Name="viewOrder" Click="viewDetail_Click" Content="View Detail" Width="100" Height="50"/>
@@ -14,15 +14,15 @@
             <Button Name="editOrder" Click="editOrder_Click" Content="Update Order" Width="100" Height="50"/>
         </StackPanel>
 
-        <ListView Margin="10" Name="bookComboBox" Height="342" Canvas.Top="54" Width="833">
+        <ListView Margin="10" Name="orderComboBox" Height="342" Canvas.Top="54" Width="833">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Customer" Width="150" DisplayMemberBinding="{Binding ?}" />
-                    <GridViewColumn Header="Tel" Width="100" DisplayMemberBinding="{Binding ?}" />
-                    <GridViewColumn Header="Address" Width="100" DisplayMemberBinding="{Binding ?}" />
-                    <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding ?}" />
-                    <GridViewColumn Header="Order ID" Width="150" DisplayMemberBinding="{Binding ?}" />
-                    <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding ?}" />
+                    <GridViewColumn Header="Customer" Width="150" DisplayMemberBinding="{Binding customerName}" />
+                    <GridViewColumn Header="Tel" Width="100" DisplayMemberBinding="{Binding tel}" />
+                    <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding address}" />
+                    <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding date}" />
+                    <GridViewColumn Header="Order ID" Width="150" DisplayMemberBinding="{Binding total}" />
+                    <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding status}" />
                     
                 </GridView>
             </ListView.View>
@@ -32,14 +32,14 @@
         <StackPanel Orientation="Horizontal" Canvas.Left="295" Canvas.Top="415" >
             <Button x:Name="previousButton" Width="80" Height="35" Content="&lt;" Click="previousButton_Click"/>
 
-            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pagingComboBox" Width="100" Height="35" >
+            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pageComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page "/>
-                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ?}"/>
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding currentPage}"/>
                             <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text=" / "/>
-                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ?}"/>
+                            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding totalPage}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
