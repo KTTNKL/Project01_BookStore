@@ -84,6 +84,7 @@ namespace BookStore.MyUserControl
                 this.categoriesComboBox.ItemsSource = _categories;
                 booksListview.ItemsSource = _vm.SelectedBooks;
                 pageNumberComboBox.SelectedIndex = 1;
+                pagingComboBox.SelectedIndex = 0;
                 if (_bus != null) { 
                     numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
                 }

@@ -116,6 +116,7 @@ namespace BookStore.MyUserControl
                     currentPage = i
                 });
             }
+            pageComboBox.SelectedIndex = 0;
 
         }
         private void updateData()
@@ -152,8 +153,26 @@ namespace BookStore.MyUserControl
                         detailOrderList[i].name = _bus.GetBookNameById(detailOrderList[i].book_id);
                     }
 
-                    var screen = new DetailPurchaseWindow(detailOrderList);
-                    if (screen.ShowDialog() == true) { }
+                    var screen = new DetailPurchaseWindow(detailOrderList, _list[index].customerName, _list[index].tel, _list[index].address, _list[index].total, _list[index].status);
+                    if (screen.ShowDialog() == true) 
+                    {
+                        if (screen.statusOrder == 0)
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "shipping");
+                            _list[index].status = "shipping";
+                        }
+                        else if (screen.statusOrder == 1)
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "shipped");
+                            _list[index].status = "shipped";
+                        }
+                        else
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "cancel");
+                            _list[index].status = "cancel";
+                        }
+                        orderComboBox.ItemsSource = _list;
+                    }
                 }
                 else
                 {
