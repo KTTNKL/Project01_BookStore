@@ -70,9 +70,9 @@ namespace BookStore.Database
             return books;
         }
 
-        public List<Book> ReadAllBookLikeName(string name,int id)
+        public List<Book> ReadAllBookLikeName(string name, int id)
         {
-            List<Book> books = _dao.ReadAllBookLikeName(name,id);
+            List<Book> books = _dao.ReadAllBookLikeName(name, id);
             return books;
         }
 
@@ -104,9 +104,9 @@ namespace BookStore.Database
             return _dao.countOutOfStock();
         }
 
-        public List<Book> ReadAllBookPrice(int low, int high,int id)
+        public List<Book> ReadAllBookPrice(int low, int high, int id)
         {
-            return _dao.ReadAllBookPrice(low, high,id);
+            return _dao.ReadAllBookPrice(low, high, id);
         }
 
         public void updateNameCategoryByID(int id, string name)
@@ -128,5 +128,36 @@ namespace BookStore.Database
         {
             return _dao.GetBookNameById(id);
         }
+
+        public void DeleteOrderByID(int id)
+        {
+            _dao.DeleteOrderByID(id);
+        }
+
+        public int AnnualRevenue(string year)
+        {
+            return _dao.AnnualRevenue(year);
+        }
+
+        public int MonthlyRevenue(string month, string year)
+        {
+            return _dao.MonthlyRevenue(month, year);
+        }
+
+        public List<string> getAllPurchaseDay()
+        {
+            return _dao.getAllPurchaseDay();
+        }
+
+        public int AnnualProfit(string year)
+        {
+            return _dao.AnnualProfit(year);
+        }
+        public int MonthlyProfit(string month, string year)
+        {
+            return _dao.MonthlyProfit(month, year);
+        }
+
+
     }
 }

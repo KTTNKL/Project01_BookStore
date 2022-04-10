@@ -274,71 +274,11 @@ namespace BookStore.MyUserControl
                 book = info;
                 
                 _bus.UpdateBook(book.id, book.name, book.author, book.publicYear, book.bookCover, book.purchasePrice, book.sellingPrice, book.stockNumer, book.sellingNumber, book.category_id);
-                MessageBox.Show("Cập nhật sách sách thành công", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                Console.WriteLine("Trước khi xóa");
-                for (int i = 0; i < _categories.Count; ++i)
-                {
-                    if (_categories[i].ID == old_cat)
-                    {
-                        for (int j = 0; j < _categories[i].Books.Count; ++j)
-                        {
-                            Console.WriteLine(_categories[i].Books[j].name);
-                        }
-                    }
-                }
-
-                if (old_cat != info.category_id)
-                {
-
-
-                    MessageBox.Show(old_cat.ToString());
-                    MessageBox.Show(info.category_id.ToString());
-                    for (int i =0; i <_categories.Count; ++i)
-                    {
-                        if (_categories[i].ID == old_cat)
-                        {
-                            for (int j = 0; j < _categories[i].Books.Count; ++j)
-                            {
-                                if (_categories[i].Books[j].id == info.id)
-                                {
-                                    MessageBox.Show(_categories[i].Books[j].name);
-                                    _categories[i].Books.RemoveAt(j);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                MessageBox.Show("Cập nhật sách sách thành công" + book.name, " ", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
 
-
-
-                    for (int i = 0; i < _categories.Count; ++i)
-                    {
-                        if (_categories[i].ID == book.category_id)
-                        {
-                            _categories[i].Books.Add(info);
-                        }
-                    }
-
-
-
-
-                }
-            }
-
-
-
-
-            // window loaded
-
-            if (dao.CanConnect())
-            {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                _bus = new Business(dao);
-                _categories = _bus.ReadAllCategory();
+                // cap nhat lai category
                 for (int i = 0; i < _categories.Count; i++)
                 {
                     _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
@@ -348,15 +288,44 @@ namespace BookStore.MyUserControl
                     }
                 }
 
+                for (int i = 0; i < _categories.Count; i++)
+                {
+                    Debug.WriteLine(_categories[i].Name);
+                    for (int j = 0; j < _categories[i].Books.Count; j++)
+                    {
+                        Debug.WriteLine(_categories[i].Books[j].name);
+                    }
+                }
+
+                // ep cap nhat giao dien
+                categoriesComboBox.ItemsSource = _categories; 
+                pageNumberComboBox.SelectedIndex = 1;
+                categoriesComboBox.SelectedIndex = currentCat;
+                int cat = currentCat;
+                if (cat < 0)
+                {
+                    cat = 0;
+                }
+                if (cat >= 0)
+                {
+                    _currentPage = 1;
+                    _vm.Books = _categories[cat].Books;
+                    _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                    _totalItems = _vm.Books.Count;
+                    _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                    booksListview.ItemsSource = _vm.SelectedBooks;
+                    _vm.Pages = new List<Page>();
+                    for (int j = 0; j < _totalPages; j++)
+                    {
+                        _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                    }
+                    pagingComboBox.ItemsSource = _vm.Pages;
+                }
+                if (_bus != null)
+                {
+                    numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
+                }
             }
-            categoriesComboBox.ItemsSource = _categories;
-            booksListview.ItemsSource = _vm.SelectedBooks;
-            pageNumberComboBox.SelectedIndex = 1;
-            categoriesComboBox.SelectedIndex = currentCat;
-
-
-            numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
-
 
 
         }
@@ -773,6 +742,69 @@ namespace BookStore.MyUserControl
                 MessageBox.Show("Cannot connect to db");
             }
         }
-        
+
+        private void AddBook_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new addBookWindow();
+            if (screen.ShowDialog() == true)
+            {
+                var newBook = screen.AddedBook;
+
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
+
+                    _bus.insertBook(newBook.name, newBook.author, newBook.publicYear, newBook.bookCover, newBook.purchasePrice, newBook.sellingPrice, newBook.stockNumer, newBook.sellingNumber, newBook.category_id);
+                    MessageBox.Show("Insert Book successfully!");
+
+                    // cap nhat lai category
+                    for (int i = 0; i < _categories.Count; i++)
+                    {
+                        _categories[i].Books = _bus.GetBooksByCategoryId(_categories[i].ID);
+                        for (int j = 0; j < _categories[i].Books.Count; j++)
+                        {
+                            _categories[i].Books[j].Category = _categories[i];
+                        }
+                    }
+
+                    // ep cap nhat giao dien
+                    categoriesComboBox.ItemsSource = _categories;
+                    pageNumberComboBox.SelectedIndex = 1;
+                    categoriesComboBox.SelectedIndex = currentCat;
+                    int cat = currentCat;
+                    if (cat < 0)
+                    {
+                        cat = 0;
+                    }
+                    if (cat >= 0)
+                    {
+                        _currentPage = 1;
+                        _vm.Books = _categories[cat].Books;
+                        _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                        _totalItems = _vm.Books.Count;
+                        _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                        booksListview.ItemsSource = _vm.SelectedBooks;
+                        _vm.Pages = new List<Page>();
+                        for (int j = 0; j < _totalPages; j++)
+                        {
+                            _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                        }
+                        pagingComboBox.ItemsSource = _vm.Pages;
+                    }
+                    if (_bus != null)
+                    {
+                        numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+        }
     }
 }
