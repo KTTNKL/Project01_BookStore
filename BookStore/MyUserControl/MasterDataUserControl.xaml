@@ -5,32 +5,264 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl" xmlns:local1="clr-namespace:BookStore"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="850" Loaded="UserControl_Loaded" >
+             d:DesignHeight="500" d:DesignWidth="850" Loaded="UserControl_Loaded" Background="#4895ef">
+
+    
+    
     <UserControl.Resources>
         <local1:RelativeToAbsoluteConverter x:Key="imageConverter"/>
+        <LinearGradientBrush x:Key="HeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#4cc9f0" Offset="0"/>
+            <GradientStop Color="#4895ef" Offset="1"/>
+            <GradientStop Color="#3a0ca3" Offset="0.509"/>
+            <GradientStop Color="#480ca8" Offset="0.542"/>
+            <GradientStop Color="#560bad" Offset="0.542"/>
+            <GradientStop Color="#FF193A44" Offset="0.526"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="HeaderBorderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#3a0ca3" Offset="0.614"/>
+            <GradientStop Color="#4361ee" Offset="0.853"/>
+            <GradientStop Color="#4cc9f0" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource HeaderBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource HeaderBorderBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <StackPanel>
         <StackPanel Margin="5" Orientation="Horizontal">
-            <Button Name="Import" Click="Import_Click" Content="Import Excel" Width="100" Height="50"/>
-            <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
-            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Delete Category" Width="100" Height="50"/>
-            <Button Name="UpdateCategoryButton" Click="UpdateCategoryButton_Click" Content="Update Category" Width="100" Height="50"/>
-          
-            <Button Margin="120,0,0,0" x:Name="reset" Click="reset_Click" Content="Reset" Width="100" Height="50"></Button>
-            <Button x:Name="Top5" Click="Top5_Click" Content="Top 5 sản phẩm hết hàng" Width="150" Height="50"></Button>
-            <Button x:Name="sanPhamHetHangButton" Click="sanPhamHetHangButton_Click" Content="Danh sách sản phẩm hết hàng" Width="170" Height="50"></Button>
+
+            <Button Name="Import" Click="Import_Click" Content="Import Excel" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Delete Category" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="UpdateCategoryButton" Click="UpdateCategoryButton_Click" Content="Update Category" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button Margin="120,0,0,0" x:Name="reset" Click="reset_Click" Content="Reset" Width="100" Height="50" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium" BorderBrush="White">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="Top5" Click="Top5_Click" Width="100" Height="50" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <TextBlock>Top 5 sản phẩm<LineBreak/> hết hàng</TextBlock>
+            </Button>
+            <Button x:Name="sanPhamHetHangButton" Click="sanPhamHetHangButton_Click" Width="120" Height="50" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <TextBlock>Danh sách sản phẩm<LineBreak/> hết hàng</TextBlock>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="120" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
 
           
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock" Width="150"></TextBlock>
-            <TextBlock Margin="465,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tìm sách"></TextBlock>
-            <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="120"/>
-            <Button Click="Search_Click" Content="Search" Name="SearchButton"  Width="50"></Button>
+            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock" Width="150"   Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBlock Margin="345,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tìm sách" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="135" Height="40">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </TextBox.Style>
+
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBlock Margin="10,0,0,0"/>
+            <Button Click="Search_Click" Name="SearchButton"  Width="50" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <Image Source="/Icons/searchIcon.png"/>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="50" Height="50" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
         <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Thể loại"></TextBlock>
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Thể loại" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
            <ComboBox SelectionChanged="categoriesComboBox_SelectionChanged" Name="categoriesComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -38,24 +270,81 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Số trang"></TextBlock>
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Số trang" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
             <ComboBox SelectionChanged="pageNumber_SelectionChanged" Name="pageNumberComboBox" Width="100" Height="35" >
                 <ComboBoxItem>5</ComboBoxItem>
                 <ComboBoxItem>10</ComboBoxItem>
             </ComboBox>
 
 
-            <TextBlock Margin="185,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ"></TextBlock>
-            <TextBox Padding="8" TextWrapping="Wrap"  Name="lowPrice" Width="120"/>
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="tới"></TextBlock>
-            <TextBox Padding="8" TextWrapping="Wrap"  Name="highPrice" Width="120"/>
-            <Button Click="SearchPrice_Click" Content="Search" Name="SearchPriceButton"  Width="50"></Button>
+            <TextBlock Margin="200,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox Padding="8" TextWrapping="Wrap"  Name="lowPrice" Width="60" Height="40">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </TextBox.Style>
+
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="tới" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox Padding="8" TextWrapping="Wrap"  Name="highPrice" Width="60" Height="40">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </TextBox.Style>
+
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBlock Margin="5,0,5,0"></TextBlock>
+            <Button Click="SearchPrice_Click" Name="SearchPriceButton" Width="50">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <Image Source="/Icons/searchIcon.png"/>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="50" Height="50" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
         </StackPanel>
-
-
-        <DataGrid Height="300" Name="booksListview" IsReadOnly="True"  ItemsSource="{Binding}" AutoGenerateColumns="False">
-            <DataGrid.Columns >
+        <DataGrid Height="330" x:Name="booksListview" IsReadOnly="True" AlternatingRowBackground="#bde0fe" ItemsSource="{Binding}" AutoGenerateColumns="False" Width="848">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <StaticResource ResourceKey="HeaderStyle"/>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Image" Width="SizeToCells" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -63,46 +352,130 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="350" />
-                <DataGridTextColumn Header="Author" Binding="{Binding author}" />
-                <DataGridTextColumn Header="Year" Binding="{Binding publicYear}" />
-       
+                <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="350"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding author}" Width="100"/>
+                <DataGridTextColumn Header="Year" Binding="{Binding publicYear}" Width="100"/>
+
                 <DataGridTextColumn Header="Stock Number" Binding="{Binding stockNumer}" />
-                
-                
-                <DataGridTemplateColumn Header="Delete" Width="50" IsReadOnly="True">
+
+
+                <DataGridTemplateColumn Width="50" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Deleted_Click" Content="Delete"></Button>
+                            <Button Click="Deleted_Click" Content="Delete" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                        <Setter Property="Background" Value="#f72585"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF4C70"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="50" CornerRadius="0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Edit" Width="50" IsReadOnly="True">
+                <DataGridTemplateColumn Width="50" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Edit_Click" Content="Edit"></Button>
+                            <Button Click="Edit_Click" Content="Edit" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                        <Setter Property="Background" Value="#f72585"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF4C70"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="50" CornerRadius="0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
 
-                <DataGridTemplateColumn Header="Detail" Width="50" IsReadOnly="True">
+                <DataGridTemplateColumn Width="*" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Detail_Click" Content="Detail"></Button>
+                            <Button Click="Detail_Click" Content="Detail" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                        <Setter Property="Background" Value="#f72585"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF4C70"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border CornerRadius="0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
-                
+
+
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-            <Button x:Name="previousButton" Width="80" Height="35" Content="&lt;" Click="previousButton_Click"/>
+            <Button x:Name="previousButton" Width="40" Height="35" Content="&lt;" Click="previousButton_Click" Foreground="White">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
 
-            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pagingComboBox" Width="100" Height="35" >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="30" Height="30" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pagingComboBox" Width="80" Height="25" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -115,7 +488,28 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Button x:Name="nextButton" Width="80" Height="35" Content="&gt;" Click="nextButton_Click"/>
+            <Button x:Name="nextButton" Width="40" Height="35" Content="&gt;" Click="nextButton_Click" Foreground="White">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="30" Height="30" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
         </StackPanel>
       

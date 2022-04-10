@@ -1,12 +1,27 @@
 ﻿<UserControl x:Class="BookStore.MyUserControl.ReportUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <Canvas>
+        <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
+            <Button Name="weeklyButton" Content="Weekly Sales" Width="100" Height="50" Click="weekly_Click"/>
+            <Button Name="monthlyButton" Content="Monthly Sales" Width="100" Height="50" Click="monthly_Click"/>
+            <Button Name="annualButton" Content="Anual Sales" Width="100" Height="50" Click="annual_Click"/>
+        </StackPanel>
+        <TextBox Text="From:" Canvas.Left="382" Canvas.Top="14"></TextBox>
+        <TextBox Text="To:" Canvas.Left="523" Canvas.Top="14"></TextBox>
+        <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="668" Canvas.Top="14"/>
+        <Button Name="PickStartButton" Content="Pick Date" Width="80" Height="20" Click="pickStartingDate_Click" Canvas.Left="382" Canvas.Top="44"/>
+        <Button Name="PickEndButton" Content="Pick Date" Width="80" Height="20" Click="pickEndingDate_Click" Canvas.Left="523" Canvas.Top="44"/>
+        <TextBox x:Name="StartDate" Text="N/A" Canvas.Left="423" Canvas.Top="14"></TextBox>
+        <TextBox x:Name="EndDate" Text="N/A" Canvas.Left="549" Canvas.Top="14"></TextBox>
+        <TextBox Text="-" Canvas.Left="498" Canvas.Top="14"></TextBox>
+        <Grid Name="Chart" Height="338" Width="748" Canvas.Left="26" Canvas.Top="102"></Grid>
+        <!--<lvc:CartesianChart Series="{Binding ch}" Canvas.Left="10" Canvas.Top="72" Height="335" Width="758"/>-->
+    </Canvas>
 </UserControl>

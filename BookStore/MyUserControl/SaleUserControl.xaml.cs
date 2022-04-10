@@ -68,7 +68,38 @@ namespace BookStore.MyUserControl
 
         private void deleteOrder_Click(object sender, RoutedEventArgs e)
         {
+            int index = orderComboBox.SelectedIndex;
+            if (index >= 0)
+            {
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
 
+                    _bus.DeleteOrderByID(_list[index].id);
+
+                    MessageBox.Show("Xóa đơn hàng thành công" , " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // cap nhat lai danh sach order
+                    _list = _bus.ReadAllPurchase();
+                    orderComboBox.ItemsSource = _list;
+                    calcPage();
+                    updatePage();
+                    _currentPage = 1;
+                    updateData();
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please choose an order");
+            }
         }
 
         private void editOrder_Click(object sender, RoutedEventArgs e)
@@ -131,6 +162,7 @@ namespace BookStore.MyUserControl
                     currentPage = i
                 });
             }
+            pageComboBox.SelectedIndex = 0;
 
         }
         private void updateData()
@@ -167,8 +199,26 @@ namespace BookStore.MyUserControl
                         detailOrderList[i].name = _bus.GetBookNameById(detailOrderList[i].book_id);
                     }
 
-                    var screen = new DetailPurchaseWindow(detailOrderList);
-                    if (screen.ShowDialog() == true) { }
+                    var screen = new DetailPurchaseWindow(detailOrderList, _list[index].customerName, _list[index].tel, _list[index].address, _list[index].total, _list[index].status);
+                    if (screen.ShowDialog() == true) 
+                    {
+                        if (screen.statusOrder == 0)
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "shipping");
+                            _list[index].status = "shipping";
+                        }
+                        else if (screen.statusOrder == 1)
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "shipped");
+                            _list[index].status = "shipped";
+                        }
+                        else
+                        {
+                            _bus.updateStatusOrder(_list[index].id, "cancel");
+                            _list[index].status = "cancel";
+                        }
+                        orderComboBox.ItemsSource = _list;
+                    }
                 }
                 else
                 {
