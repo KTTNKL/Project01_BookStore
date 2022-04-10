@@ -22,8 +22,11 @@ namespace BookStore
     {
         public DetailPurchaseWindow(List<PurchaseDetail> list)
         {
-            //detailComboBox.ItemsSource = list;
+            
             InitializeComponent();
+            detailComboBox.ItemsSource = list;
         }
+
+
     }
 }

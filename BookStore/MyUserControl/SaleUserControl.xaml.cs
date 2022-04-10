@@ -41,26 +41,6 @@ namespace BookStore.MyUserControl
             InitializeComponent();
         }
 
-        private void viewDetail_Click(object sender, RoutedEventArgs e)
-        {
-            int index = orderComboBox.SelectedIndex;
-            string? connectionString = AppConfig.ConnectionString();
-            var dao = new SqlDataAccess(connectionString!);
-            if (dao.CanConnect())
-            {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                var _bus = new Business(dao);
-                //var detailOrderList = _bus.getAllDetailOrder(_list[index].id);
-                //new DetailPurchaseWindow(detailOrderList).Show();
-                //var a = screen.a;
-                //MessageBox.Show(a.ToString());
-            }
-            else
-            {
-                MessageBox.Show("Cannot connect to db");
-            }
-        }
 
         private void addNewOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -151,6 +131,42 @@ namespace BookStore.MyUserControl
             int i = pageComboBox.SelectedIndex;
             _currentPage = i + 1;
             updateData();
+        }
+
+        private void viewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            int index = orderComboBox.SelectedIndex;
+            if(index >= 0)
+            {
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
+                    var detailOrderList = _bus.getAllDetailOrder(_list[index].id);
+
+                    for (int i = 0; i < detailOrderList.Count(); i++)
+                    {
+                        detailOrderList[i].name = _bus.GetBookNameById(detailOrderList[i].book_id);
+                    }
+
+                    var screen = new DetailPurchaseWindow(detailOrderList);
+                    if (screen.ShowDialog() == true) { }
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please choose an order");
+            }
+
+            
+
         }
     }
 }
