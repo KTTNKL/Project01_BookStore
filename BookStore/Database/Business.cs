@@ -123,5 +123,10 @@ namespace BookStore.Database
         {
             return _dao.getAllDetailOrder(id);
         }
+
+        public string GetBookNameById(int id)
+        {
+            return _dao.GetBookNameById(id);
+        }
     }
 }

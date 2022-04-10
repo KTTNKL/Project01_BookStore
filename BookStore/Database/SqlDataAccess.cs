@@ -544,6 +544,27 @@ namespace BookStore.Database
 
         }
 
+
+        public string GetBookNameById(int id)
+        {
+            var sql = "select * from Book where book_id=@BookId";
+            var command = new SqlCommand(sql, _connection);
+
+            command.Parameters.Add("BookId", SqlDbType.Int).Value = id;
+
+            var reader = command.ExecuteReader();
+
+            string result = "";
+
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                result = (string)reader["book_name"];
+            }
+            reader.Close();
+            return result;
+        }
+
+
     }
 
 }

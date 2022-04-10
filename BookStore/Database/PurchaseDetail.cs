@@ -8,6 +8,7 @@ namespace BookStore.Database
 {
     public class PurchaseDetail
     {
+		public string name { set; get; }
 		public int purchasedetail_id { set; get; }
 		public int purchase_id { set; get; }
 		public int book_id { set; get; }

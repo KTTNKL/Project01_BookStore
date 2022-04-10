@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="DetailPurchaseWindow" Height="450" Width="800">
     <Canvas>
-        <ListView Margin="10" Name="detailComboBox" Height="342" Canvas.Top="46" Width="833">
+        <ListView Margin="10" Name="detailComboBox" Height="342" Canvas.Top="46" Width="750" Canvas.Left="25">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="150" DisplayMemberBinding="{Binding book_id }" />
+                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding book_id }" />
+                    <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding name }" />
                     <GridViewColumn Header="quantity" Width="100" DisplayMemberBinding="{Binding quantity }" />
                     <GridViewColumn Header="price" Width="150" DisplayMemberBinding="{Binding price }" />
                     <GridViewColumn Header="total" Width="150" DisplayMemberBinding="{Binding total }" />
                 </GridView>
             </ListView.View>
         </ListView>
-        
     </Canvas>
 </Window>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Database
 {
-    class Purchase : INotifyPropertyChanged, ICloneable
+    public class Purchase : INotifyPropertyChanged, ICloneable
     {
 
         public int id { set; get; }

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="850" Loaded="Sale_Loaded">
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
-            <Button Name="viewOrder" Click="viewDetail_Click" Content="View Detail" Width="100" Height="50"/>
+            <Button Name="viewOrder" Content="View Detail" Width="100" Height="50" Click="viewOrder_Click"/>
             <Button Name="addNewOrder" Click="addNewOrder_Click" Content="Add Order" Width="100" Height="50"/>
             <Button Name="deleteOrder" Click="deleteOrder_Click" Content="Delete Order" Width="100" Height="50"/>
             <Button Name="editOrder" Click="editOrder_Click" Content="Update Order" Width="100" Height="50"/>
