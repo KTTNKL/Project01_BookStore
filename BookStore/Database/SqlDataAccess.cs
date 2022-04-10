@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,34 +30,14 @@ namespace BookStore.Database
             }
             catch (Exception ex)
             {
-                try
-                {
-                    string? connectionString = AppConfig.ConnectionString2();
-
-                    _connection = new SqlConnection(connectionString);
-                    _connection.Open();
-                    _connection.Close();
-                }
-                catch (Exception ex2)
-                {
-                    result = false;
-
-                }
+                result = false;
             }
             return result;
         }
 
         public void Connect()
         {
-            try
-            {
-                _connection.Open();
-            } catch (Exception ex)
-            {
-                string? connectionString = AppConfig.ConnectionString2();
-                _connection = new SqlConnection(connectionString);
-                _connection.Open();
-            }
+            _connection.Open();
         }
 
         public List<Category> ReadAllCategory()
@@ -535,6 +515,7 @@ namespace BookStore.Database
             }
             reader.Close();
             return purchases;
+
         }
         public List<PurchaseDetail> getAllDetailOrder(int purchaseID)
         {
@@ -583,7 +564,95 @@ namespace BookStore.Database
             return result;
         }
 
-        public void updateStatusOrder(int id, string status)
+        public void DeleteOrderByID(int id)
+        {
+            var sql = "delete from Purchase where purchase_id=@PurchaseId";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("PurchaseId", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
+
+        public int AnnualRevenue(string year)
+        {
+            var sql = "select sum(purchase_final_total) as TOTAL from Purchase where purchase_created_at like '%" + year + "%'";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = 0;
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                    // check DBnull
+                    result = reader["TOTAL"] as int? ?? default(int);
+
+            }
+            reader.Close();
+            return result;
+        }
+
+        public int AnnualProfit(string year)
+        {
+            var sql = "select sum(purchase_final_profit) as TOTAL from Purchase where purchase_created_at like '%" + year + "%'";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = 0;
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                // check DBnull
+                result = reader["TOTAL"] as int? ?? default(int);
+
+            }
+            reader.Close();
+            return result;
+        }
+
+        public int MonthlyRevenue(string month, string year)
+        {
+            var sql = "select sum(purchase_final_total) as TOTAL from Purchase where purchase_created_at like '%" + year + "%' and purchase_created_at like '%/" + month + "/%'";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = 0;
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                // check DBnull
+                result = reader["TOTAL"] as int? ?? default(int);
+
+            }
+            reader.Close();
+            return result;
+        }
+
+        public int MonthlyProfit(string month, string year)
+        {
+            var sql = "select sum(purchase_final_profit) as TOTAL from Purchase where purchase_created_at like '%" + year + "%' and purchase_created_at like '%/" + month + "/%'";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = 0;
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                // check DBnull
+                result = reader["TOTAL"] as int? ?? default(int);
+
+            }
+            reader.Close();
+            return result;
+        }
+
+        public List<string> getAllPurchaseDay()
+        {
+            var sql = "select purchase_created_at from Purchase" ;
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = new List<string>();
+            while (reader.Read())
+            {
+                var date = (string)reader["purchase_created_at"];
+                result.Add(date);
+            }
+            reader.Close();
+            return result;
+        }
+      
+      public void updateStatusOrder(int id, string status)
         {
             var sql = "update Purchase set purchase_status=@status where purchase_id=@id";
             var command = new SqlCommand(sql, _connection);

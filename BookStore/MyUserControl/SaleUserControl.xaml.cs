@@ -49,7 +49,38 @@ namespace BookStore.MyUserControl
 
         private void deleteOrder_Click(object sender, RoutedEventArgs e)
         {
+            int index = orderComboBox.SelectedIndex;
+            if (index >= 0)
+            {
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    var _bus = new Business(dao);
 
+                    _bus.DeleteOrderByID(_list[index].id);
+
+                    MessageBox.Show("Xóa đơn hàng thành công" , " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // cap nhat lai danh sach order
+                    _list = _bus.ReadAllPurchase();
+                    orderComboBox.ItemsSource = _list;
+                    calcPage();
+                    updatePage();
+                    _currentPage = 1;
+                    updateData();
+                }
+                else
+                {
+                    MessageBox.Show("Cannot connect to db");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please choose an order");
+            }
         }
 
         private void editOrder_Click(object sender, RoutedEventArgs e)

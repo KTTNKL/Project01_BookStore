@@ -16,16 +16,17 @@ using System.Windows.Shapes;
 namespace BookStore
 {
     /// <summary>
-    /// Interaction logic for EditBookWindow.xaml
+    /// Interaction logic for addBookWindow.xaml
     /// </summary>
-    public partial class EditBookWindow : Window
+    public partial class addBookWindow : Window
     {
-        public Book EditedBook { get; set; }
-        public EditBookWindow(Book bk)
+        public Book AddedBook { get; set; }
+        public addBookWindow()
         {
+            AddedBook = new Book();
+            AddedBook.Category = new Category();
             InitializeComponent();
-            EditedBook = (Book)bk.Clone();
-            this.DataContext = EditedBook;
+            this.DataContext = AddedBook;
 
             Business _bus = null;
             string? connectionString = AppConfig.ConnectionString();
@@ -36,21 +37,18 @@ namespace BookStore
 
             List<Category> _categories = _bus.ReadAllCategory();
             categoriesComboBox.ItemsSource = _categories;
-
-            
-            
         }
+
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
-
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cat = (Category)categoriesComboBox.SelectedItem;
-            //EditedBook.Category.ID = cat.ID;
-            //EditedBook.Category.Name = cat.Name;
-            EditedBook.category_id = cat.ID;
+            AddedBook.Category.ID = cat.ID;
+            AddedBook.Category.Name = cat.Name;
+            AddedBook.category_id = cat.ID;
         }
     }
 }
