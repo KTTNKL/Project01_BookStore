@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Database
 {
-    public class Book : INotifyPropertyChanged, ICloneable
+    public class Book :  INotifyPropertyChanged
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -19,11 +19,13 @@ namespace BookStore.Database
         public int stockNumer { get; set; }
         public int sellingNumber { get; set; }
 
+        public int buyNumber { get; set; }
+
+        public int saleTotalPrice { get; set; }
+
         public int category_id { get; set; }
 
         public Category Category { get; set; }
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
