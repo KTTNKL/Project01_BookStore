@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -651,6 +651,17 @@ namespace BookStore.Database
             reader.Close();
             return result;
         }
+      
+      public void updateStatusOrder(int id, string status)
+        {
+            var sql = "update Purchase set purchase_status=@status where purchase_id=@id";
+            var command = new SqlCommand(sql, _connection);
+            command.Parameters.Add("status", SqlDbType.NText).Value = status;
+            command.Parameters.Add("id", SqlDbType.Int).Value = id;
+            var reader = command.ExecuteReader();
+            reader.Close();
+        }
+
 
     }
 

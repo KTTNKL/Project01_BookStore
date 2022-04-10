@@ -129,6 +129,7 @@ namespace BookStore.Database
             return _dao.GetBookNameById(id);
         }
 
+
         public void DeleteOrderByID(int id)
         {
             _dao.DeleteOrderByID(id);
@@ -158,6 +159,10 @@ namespace BookStore.Database
             return _dao.MonthlyProfit(month, year);
         }
 
+        public void updateStatusOrder(int id, string status)
+        {
+            _dao.updateStatusOrder(id, status);
+        }
 
     }
 }

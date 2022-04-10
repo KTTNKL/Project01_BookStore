@@ -5,9 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="DetailPurchaseWindow" Height="450" Width="800">
+        Title="DetailPurchaseWindow" Height="550" Width="800">
     <Canvas>
-        <ListView Margin="10" Name="detailComboBox" Height="342" Canvas.Top="46" Width="750" Canvas.Left="25">
+        <Label Content="Customer Name:" Canvas.Left="35" Canvas.Top="10"></Label>
+        <Label Name="CustomerName" Canvas.Left="142" Canvas.Top="10" Height="26" Width="184"></Label>
+
+        <Label Content="Customer Phone:" Canvas.Left="35" Canvas.Top="41"></Label>
+        <Label Name="CustomerPhone" Canvas.Left="147" Canvas.Top="41" Height="26" Width="184"></Label>
+
+        <Label Content="Customer Address:" Canvas.Left="35" Canvas.Top="72"></Label>
+        <Label Name="CustomerAddress" Canvas.Left="147" Canvas.Top="72" Height="26" Width="184"></Label>
+
+        <Label Content="Total: " Canvas.Left="609" Canvas.Top="436"></Label>
+        <Label Name="Total" Canvas.Left="655" Canvas.Top="436" Height="26" Width="105"></Label>
+
+        <Label Content="Status: " Canvas.Left="418" Canvas.Top="19"></Label>
+
+        <ComboBox SelectionChanged="statusComboBox_SelectionChanged" Name="statusComboBox" Canvas.Left="464" Canvas.Top="23" Width="132">
+            <ComboBoxItem>Shipping</ComboBoxItem>
+            <ComboBoxItem>Shipped</ComboBoxItem>
+            <ComboBoxItem>Cancel</ComboBoxItem>
+        </ComboBox>
+
+        <ListView Margin="10" Name="detailComboBox" Height="337" Canvas.Top="94" Width="750">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding book_id }" />
@@ -18,5 +38,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="159" Canvas.Top="473"/>
+        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="345" Canvas.Top="473" RenderTransformOrigin="0.471,0.142"/>
     </Canvas>
 </Window>
