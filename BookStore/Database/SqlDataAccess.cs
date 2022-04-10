@@ -30,14 +30,34 @@ namespace BookStore.Database
             }
             catch (Exception ex)
             {
-                result = false;
+                try
+                {
+                    string? connectionString = AppConfig.ConnectionString2();
+
+                    _connection = new SqlConnection(connectionString);
+                    _connection.Open();
+                    _connection.Close();
+                }
+                catch (Exception ex2)
+                {
+                    result = false;
+
+                }
             }
             return result;
         }
 
         public void Connect()
         {
-            _connection.Open();
+            try
+            {
+                _connection.Open();
+            } catch (Exception ex)
+            {
+                string? connectionString = AppConfig.ConnectionString2();
+                _connection = new SqlConnection(connectionString);
+                _connection.Open();
+            }
         }
 
         public List<Category> ReadAllCategory()

@@ -53,6 +53,32 @@ namespace BookStore
             result = builder.ToString();
             return result;
         }
+        public static string? ConnectionString2()
+        {
+            string? result = "";
+            string? instance = "sqlexpress";
+            var builder = new SqlConnectionStringBuilder();
+            string? server = AppConfig.GetValue(AppConfig.Server);
+            string value = AppConfig.GetValue(AppConfig.Instance);
+            if (value == "sqlexpress")
+            {
+                instance = "SQLEXPRESS";
+            }
+            else if (value == "SQLEXPRESS") {
+                instance = "sqlexpress";
+            }
+            string? database = AppConfig.GetValue(AppConfig.Database);
+            string? username = AppConfig.GetValue(AppConfig.Username);
+            string? password = AppConfig.GetValue(AppConfig.Password);
+
+            builder.DataSource = $"{server}\\{instance}";
+            builder.InitialCatalog = database;
+            builder.IntegratedSecurity = true;
+            builder.ConnectTimeout = 3; // s
+
+            result = builder.ToString();
+            return result;
+        }
 
     }
 }
