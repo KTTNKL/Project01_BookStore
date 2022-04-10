@@ -17,12 +17,12 @@
         <ListView Margin="10" Name="orderComboBox" Height="342" Canvas.Top="54" Width="833">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding address}" />
                     <GridViewColumn Header="Customer" Width="150" DisplayMemberBinding="{Binding customerName}" />
                     <GridViewColumn Header="Tel" Width="100" DisplayMemberBinding="{Binding tel}" />
-                    <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding address}" />
                     <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding date}" />
-                    <GridViewColumn Header="Order ID" Width="150" DisplayMemberBinding="{Binding total}" />
-                    <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding status}" />
+                    <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding total}" />
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding status}" />
                     
                 </GridView>
             </ListView.View>

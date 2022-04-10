@@ -128,5 +128,10 @@ namespace BookStore.Database
         {
             return _dao.GetBookNameById(id);
         }
+
+        public void updateStatusOrder(int id, string status)
+        {
+            _dao.updateStatusOrder(id, status);
+        }
     }
 }
