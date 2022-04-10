@@ -55,16 +55,6 @@
     <StackPanel>
         <StackPanel Margin="5" Orientation="Horizontal">
 
-            <Button Name="Import" Click="Import_Click" Content="Import Excel" Width="100" Height="50"/>
-            <Button Name="AddCategoryButton" Click="AddCategoryButton_Click" Content="Add Category" Width="100" Height="50"/>
-            <Button Name="DeleteCategoryButton" Click="DeleteCategoryButton_Click" Content="Delete Category" Width="100" Height="50"/>
-            <Button Name="UpdateCategoryButton" Click="UpdateCategoryButton_Click" Content="Update Category" Width="100" Height="50"/>
-            <Button Name="AddBookButton" Click="AddBook_Click" Content="Add Book" Width="100" Height="50"/>
-          
-            <Button Margin="120,0,0,0" x:Name="reset" Click="reset_Click" Content="Reset" Width="100" Height="50"></Button>
-            <Button x:Name="Top5" Click="Top5_Click" Content="Top 5 sản phẩm hết hàng" Width="150" Height="50"></Button>
-            <Button x:Name="sanPhamHetHangButton" Click="sanPhamHetHangButton_Click" Content="Danh sách sản phẩm hết hàng" Width="170" Height="50"></Button>
-
             <Button Name="Import" Click="Import_Click" Content="Import Excel" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
                 <Button.Style>
                     <Style TargetType="Button">
