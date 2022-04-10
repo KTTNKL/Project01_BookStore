@@ -44,7 +44,26 @@ namespace BookStore.MyUserControl
 
         private void addNewOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                _bus = new Business(dao);
+                var init = _bus.ReadAllBook();
+                var screen = new AddSaleData(init);
+                if (screen.ShowDialog() == true) {
+                    _list = _bus.ReadAllPurchase();
+                    orderComboBox.ItemsSource = _list;
+                    calcPage();
+                    updatePage();
+                    _currentPage = 1;
+                    updateData();
+                }
+            }
+           
         }
 
         private void deleteOrder_Click(object sender, RoutedEventArgs e)
@@ -71,11 +90,7 @@ namespace BookStore.MyUserControl
             else _currentPage++;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+  
         private void Sale_Loaded(object sender, RoutedEventArgs e)
         {
             string? connectionString = AppConfig.ConnectionString();

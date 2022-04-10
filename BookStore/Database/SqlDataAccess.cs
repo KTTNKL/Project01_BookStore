@@ -16,6 +16,7 @@ namespace BookStore.Database
         private SqlConnection _connection;
         public SqlDataAccess(string connectionString)
         {
+            Debug.WriteLine("CONNECTION111"+connectionString);
             _connection = new SqlConnection(connectionString);
         }
 
@@ -33,6 +34,7 @@ namespace BookStore.Database
                 try
                 {
                     string? connectionString = AppConfig.ConnectionString2();
+                    Debug.WriteLine("CONNECTION2222"+connectionString);
 
                     _connection = new SqlConnection(connectionString);
                     _connection.Open();
@@ -250,6 +252,38 @@ namespace BookStore.Database
             reader.Close();
             return books;
         }
+        public List<Book> ReadAllBookLikeName(string name)
+        {
+            var sql = "select * from Book where book_name LIKE '%" + name + "%'";
+
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+
+            List<Book> books = new List<Book>();
+
+            while (reader.Read())
+            {
+                Book book = new Book()
+                {
+                    id = (int)reader["book_id"],
+                    name = (string)reader["book_name"],
+                    author = (string)reader["book_author"],
+                    publicYear = (int)reader["book_year"],
+                    bookCover = (string)reader["book_cover"],
+                    purchasePrice = (int)reader["book_buying_price"],
+                    sellingPrice = (int)reader["book_selling_price"],
+                    stockNumer = (int)reader["book_stock"],
+                    sellingNumber = (int)reader["book_sold"],
+                    category_id = (int)reader["book_category"]
+                };
+
+                books.Add(book);
+                //Debug.WriteLine(bookId);
+            }
+
+            reader.Close();
+            return books;
+        }
 
         public List<Book> ReadAllBookPrice(int low, int high,int id)
         {
@@ -374,6 +408,34 @@ namespace BookStore.Database
 
 
             SqlCommand command = new SqlCommand(query, _connection);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+
+        }
+
+        public void insertPurchaseRecord(string customer_name, string customer_tel, string customer_address, int total,int profit, string date, string status)
+        {
+
+            string query = "INSERT INTO Purchase(customer_name, customer_tel, customer_address, purchase_final_total, purchase_created_at,purchase_status, purchase_final_profit) " +
+                "VALUES(@customer_name,@customer_tel,@customer_address,@total,@date,@status,@profit)";
+
+
+            SqlCommand command = new SqlCommand(query, _connection);
+            command.Parameters.Add("customer_name", SqlDbType.NText).Value = customer_name;
+            command.Parameters.Add("customer_tel", SqlDbType.NText).Value = customer_tel;
+            command.Parameters.Add("customer_address", SqlDbType.NText).Value = customer_address;
+            command.Parameters.Add("total", SqlDbType.Int).Value = total;
+            command.Parameters.Add("profit", SqlDbType.Int).Value = profit;
+            command.Parameters.Add("date", SqlDbType.NText).Value = date;
+            command.Parameters.Add("status", SqlDbType.NText).Value = status;
+           
+
             try
             {
                 command.ExecuteNonQuery();
@@ -584,7 +646,21 @@ namespace BookStore.Database
             return result;
         }
 
+        public int LastestPurchaseID()
+        {
+            var sql = "Select Max(purchase_id) from Purchase";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
 
+            int result = 0;
+
+            if (reader.Read()) // ORM - Object relational mapping
+            {
+                result = (int)reader[0];
+            }
+            reader.Close();
+            return result;
+        }
     }
 
 }

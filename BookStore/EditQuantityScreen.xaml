@@ -1,0 +1,14 @@
+﻿<Window x:Class="BookStore.EditQuantityScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore"
+        mc:Ignorable="d"
+        Title="EditQuantityScreen" Height="100" Width="400">
+    <Canvas>
+        <TextBox Padding="5,5,5,5" x:Name="nameTextBox" Text="{Binding buyNumber}" Width="151" Height="35" Canvas.Left="10" Canvas.Top="10"/>
+        <Button x:Name="okButton" IsDefault="True" Content="OK" Width="80" Height="35" Click="okButton_Click" Canvas.Left="182" Canvas.Top="10"/>
+        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="294" Canvas.Top="10" RenderTransformOrigin="2.413,-1.958" />
+    </Canvas>
+</Window>

@@ -30,6 +30,10 @@ namespace BookStore.Database
         {
             _dao.insertBookRecord(name, author, year, cover, buying, selling, stock, sold, category);
         }
+        public void insertPurchase(string customer_name, string customer_tel, string customer_address, int total, int profit, string date, string status)
+        {
+            _dao.insertPurchaseRecord(customer_name, customer_tel, customer_address, total,profit, date, status);
+        }
         public int getCategoryID(string category_name)
         {
             return _dao.getIDCategory(category_name);
@@ -73,6 +77,12 @@ namespace BookStore.Database
         public List<Book> ReadAllBookLikeName(string name,int id)
         {
             List<Book> books = _dao.ReadAllBookLikeName(name,id);
+            return books;
+        }
+
+        public List<Book> ReadAllBookLikeName(string name)
+        {
+            List<Book> books = _dao.ReadAllBookLikeName(name);
             return books;
         }
 
@@ -127,6 +137,11 @@ namespace BookStore.Database
         public string GetBookNameById(int id)
         {
             return _dao.GetBookNameById(id);
+        }
+
+        public int LastestPurchaseID()
+        {
+            return _dao.LastestPurchaseID();
         }
     }
 }
