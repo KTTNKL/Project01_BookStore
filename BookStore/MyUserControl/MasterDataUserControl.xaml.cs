@@ -33,9 +33,10 @@ namespace BookStore.MyUserControl
         public MasterDataUserControl()
         {
             InitializeComponent();
+
         }
 
-        
+
 
         class ViewModel : INotifyPropertyChanged
         {
@@ -92,11 +93,16 @@ namespace BookStore.MyUserControl
             {
                 MessageBox.Show("Cannot connect to database");
             }
-        }
 
+            Window window = Window.GetWindow(this);
+            window.Closing += window_Closing;
+        }
+        void window_Closing(object sender, global::System.ComponentModel.CancelEventArgs e)
+        {
+            AppConfig.SetValue(AppConfig.Page, "0");
+        }
         private void categoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine("InitializeCate");
 
             int i = categoriesComboBox.SelectedIndex;
             if (i >= 0)

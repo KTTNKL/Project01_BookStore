@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace BookStore.MyUserControl
         public SaleUserControl()
         {
             InitializeComponent();
+
         }
 
 
@@ -124,6 +126,7 @@ namespace BookStore.MyUserControl
   
         private void Sale_Loaded(object sender, RoutedEventArgs e)
         {
+
             string? connectionString = AppConfig.ConnectionString();
             var dao = new SqlDataAccess(connectionString!);
             if (dao.CanConnect())
@@ -143,8 +146,13 @@ namespace BookStore.MyUserControl
             {
                 MessageBox.Show("Cannot connect to db");
             }
+            Window window = Window.GetWindow(this);
+            window.Closing += window_Closing;
         }
-
+        void window_Closing(object sender, global::System.ComponentModel.CancelEventArgs e)
+        {
+            AppConfig.SetValue(AppConfig.Page, "1");
+        }
         private void calcPage()
         {
             _totalItems = _list.Count();
@@ -182,7 +190,7 @@ namespace BookStore.MyUserControl
 
         private void viewOrder_Click(object sender, RoutedEventArgs e)
         {
-            int index = orderComboBox.SelectedIndex;
+            int index = (_currentPage-1)*10+orderComboBox.SelectedIndex;
             if(index >= 0)
             {
                 string? connectionString = AppConfig.ConnectionString();

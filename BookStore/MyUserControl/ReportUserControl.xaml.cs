@@ -3,6 +3,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace BookStore.MyUserControl
         public ReportUserControl()
         {
             InitializeComponent();
+
         }
 
 
@@ -286,6 +288,16 @@ namespace BookStore.MyUserControl
                 return false;
             }
            
+        }
+
+        private void Report_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            window.Closing += window_Closing;
+        }
+        void window_Closing(object sender, global::System.ComponentModel.CancelEventArgs e)
+        {
+            AppConfig.SetValue(AppConfig.Page, "2");
         }
     }
 }
