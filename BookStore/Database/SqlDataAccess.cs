@@ -16,7 +16,6 @@ namespace BookStore.Database
         private SqlConnection _connection;
         public SqlDataAccess(string connectionString)
         {
-            Debug.WriteLine("CONNECTION111"+connectionString);
             _connection = new SqlConnection(connectionString);
         }
 
@@ -34,8 +33,6 @@ namespace BookStore.Database
                 try
                 {
                     string? connectionString = AppConfig.ConnectionString2();
-                    Debug.WriteLine("CONNECTION2222"+connectionString);
-
                     _connection = new SqlConnection(connectionString);
                     _connection.Open();
                     _connection.Close();
@@ -753,6 +750,35 @@ namespace BookStore.Database
             reader.Close();
         }
 
+        public void insertPurchaseDetailRecord(int purchase_id, int book_id, int quantity, int price, int total_price)
+        {
+
+            string query = "INSERT INTO PurchaseDetail(purchase_id, book_id, purchasedetail_quantity, purchasedetail_price,purchasedetail_total) " +
+                "VALUES(@purchase_id,@book_id,@quantity,@price,@total_price)";
+
+
+            SqlCommand command = new SqlCommand(query, _connection);
+      
+            command.Parameters.Add("purchase_id", SqlDbType.Int).Value = purchase_id;
+            command.Parameters.Add("book_id", SqlDbType.Int).Value = book_id;
+            command.Parameters.Add("quantity", SqlDbType.Int).Value = quantity;
+            command.Parameters.Add("price", SqlDbType.Int).Value = price;
+            command.Parameters.Add("total_price", SqlDbType.Int).Value = total_price;
+
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+
+        }
+
+
+
         public int NumberOfOrder()
         {
             var sql = "SELECT COUNT(purchase_id) AS TOTAL FROM Purchase ";
@@ -767,7 +793,6 @@ namespace BookStore.Database
             return result;
         }
 
-            
     }
 
 }
