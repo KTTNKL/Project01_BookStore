@@ -5,34 +5,163 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="850" Loaded="Sale_Loaded">
+             d:DesignHeight="450" d:DesignWidth="850" Loaded="Sale_Loaded" Background="#4895ef">
+
+    <UserControl.Resources>
+        <Style x:Key="GridViewColumnHeaderStyle1" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Grid>
+                            <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="Transparent">
+                                <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                            </Border>
+                            <Border Name="HeaderBorder"
+                BorderThickness="0,1,0,1"
+                BorderBrush="White"
+                Background="#4361ee"
+                Padding="2,0,2,0">
+                                <ContentPresenter Name="HeaderContent"
+                  Margin="0,0,0,1"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  RecognizesAccessKey="True"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="white" />
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </UserControl.Resources>
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
-            <Button Name="viewOrder" Content="View Detail" Width="100" Height="50" Click="viewOrder_Click"/>
-            <Button Name="addNewOrder" Click="addNewOrder_Click" Content="Add Order" Width="100" Height="50"/>
-            <Button Name="deleteOrder" Click="deleteOrder_Click" Content="Delete Order" Width="100" Height="50"/>
-            <Button Name="editOrder" Click="editOrder_Click" Content="Update Order" Width="100" Height="50"/>
+            <Button Margin="5,0,0,0" Name="viewOrder" Content="View Detail" Width="100" Height="50" Click="viewOrder_Click" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
 
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="addNewOrder" Click="addNewOrder_Click" Width="100" Height="50" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Source="/Icons/addCat.ico" Width="30" Height="30" Margin="0,0,5,0"/>
+                    <TextBlock>New<LineBreak/> Order</TextBlock>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="deleteOrder" Click="deleteOrder_Click" Width="100" Height="50" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Source="/Icons/delete.jpg" Width="30" Height="30" Margin="0,0,5,0"/>
+                    <TextBlock>Delete<LineBreak/> Order</TextBlock>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#b5179e"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
         <TextBlock Margin="5,10,5,10" Name="numberOfOrderTextBlock" Width="150" Canvas.Left="450" Canvas.Top="10"/>
 
-        <ListView Margin="10" Name="orderComboBox" Height="342" Canvas.Top="54" Width="833">
+        <ListView Margin="15,20,0,20" Name="orderComboBox" Height="400" Canvas.Top="54" Width="848">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="50" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding address}" />
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
+                    <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding address}" ></GridViewColumn>
                     <GridViewColumn Header="Customer" Width="150" DisplayMemberBinding="{Binding customerName}" />
                     <GridViewColumn Header="Tel" Width="100" DisplayMemberBinding="{Binding tel}" />
                     <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding date}" />
                     <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding total}" />
                     <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding status}" />
-
                 </GridView>
             </ListView.View>
         </ListView>
 
 
-        <StackPanel Orientation="Horizontal" Canvas.Left="295" Canvas.Top="415" >
-            <Button x:Name="previousButton" Width="80" Height="35" Content="&lt;" Click="previousButton_Click"/>
+        <StackPanel Orientation="Horizontal" Canvas.Left="346" Canvas.Top="489" >
+            <Button x:Name="previousButton" Width="30" Height="30" Content="&lt;" Click="previousButton_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="30" Height="30" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
             <ComboBox SelectionChanged="pageComboBox_SelectionChanged" Name="pageComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
@@ -47,7 +176,28 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Button x:Name="nextButton" Width="80" Height="35" Content="&gt;" Click="nextButton_Click"/>
+            <Button x:Name="nextButton" Width="30" Height="30" Content="&gt;" Click="nextButton_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="30" Height="30" CornerRadius="100" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
         </StackPanel>
 

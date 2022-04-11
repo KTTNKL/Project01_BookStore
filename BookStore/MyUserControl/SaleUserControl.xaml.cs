@@ -104,11 +104,6 @@ namespace BookStore.MyUserControl
             }
         }
 
-        private void editOrder_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
             _currentPage++;

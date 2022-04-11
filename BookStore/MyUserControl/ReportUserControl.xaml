@@ -6,21 +6,147 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="Report_Loaded">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="Report_Loaded" Background="#4895ef">
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
-            <Button Name="weeklyButton" Content="Weekly Sales" Width="100" Height="50" Click="weekly_Click"/>
-            <Button Name="monthlyButton" Content="Monthly Sales" Width="100" Height="50" Click="monthly_Click"/>
-            <Button Name="annualButton" Content="Anual Sales" Width="100" Height="50" Click="annual_Click"/>
+            <Button Name="weeklyButton" Content="Weekly Sales" Width="100" Height="50" Click="weekly_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="monthlyButton" Content="Monthly Sales" Width="100" Height="50" Click="monthly_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="annualButton" Content="Anual Sales" Width="100" Height="50" Click="annual_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
-        <TextBox Text="From:" Canvas.Left="382" Canvas.Top="14"></TextBox>
-        <TextBox Text="To:" Canvas.Left="523" Canvas.Top="14"></TextBox>
-        <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="668" Canvas.Top="14"/>
-        <Button Name="PickStartButton" Content="Pick Date" Width="80" Height="20" Click="pickStartingDate_Click" Canvas.Left="382" Canvas.Top="44"/>
-        <Button Name="PickEndButton" Content="Pick Date" Width="80" Height="20" Click="pickEndingDate_Click" Canvas.Left="523" Canvas.Top="44"/>
+        <TextBlock Text="From:" Canvas.Left="382" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+        <TextBlock Text="To:" Canvas.Left="523" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+        <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="668" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="50" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="PickStartButton" Content="Pick Date" Width="80" Height="20" Click="pickStartingDate_Click" Canvas.Left="382" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="80" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="PickEndButton" Content="Pick Date" Width="80" Height="20" Click="pickEndingDate_Click" Canvas.Left="523" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="80" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <TextBox x:Name="StartDate" Text="N/A" Canvas.Left="423" Canvas.Top="14"></TextBox>
-        <TextBox x:Name="EndDate" Text="N/A" Canvas.Left="549" Canvas.Top="14"></TextBox>
-        <TextBox Text="-" Canvas.Left="498" Canvas.Top="14"></TextBox>
+        <TextBox x:Name="EndDate" Text="N/A" Canvas.Left="549" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBox>
+        <TextBlock Text="-" Canvas.Left="485" Canvas.Top="16" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
         <Grid Name="Chart" Height="338" Width="748" Canvas.Left="26" Canvas.Top="102"></Grid>
         <!--<lvc:CartesianChart Series="{Binding ch}" Canvas.Left="10" Canvas.Top="72" Height="335" Width="758"/>-->
     </Canvas>
