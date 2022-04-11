@@ -25,6 +25,8 @@ namespace BookStore.MyUserControl
     public partial class ReportUserControl : UserControl
     {
         public SeriesCollection SeriesCollection { get; set; }
+       
+
         public ReportUserControl()
         {
             InitializeComponent();
@@ -54,28 +56,131 @@ namespace BookStore.MyUserControl
 
         private void weekly_Click(object sender, RoutedEventArgs e)
         {
-            Chart.Children.RemoveRange(0, 1);
-            CartesianChart ch = new CartesianChart();
-            ch.AxisX.Add(new Axis
+            var DayoftheWeek = new Dictionary<string, int>();
+            DayoftheWeek.Add("Monday", 1);
+            DayoftheWeek.Add("Tuesday", 1);
+            DayoftheWeek.Add("Wednesday", 1);
+            DayoftheWeek.Add("Thursday", 1);
+            DayoftheWeek.Add("Friday", 1);
+            DayoftheWeek.Add("Saturday", 1);
+            DayoftheWeek.Add("Sunday", 1);
+
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
             {
-                Title = "Week",
-                Labels = new[] {"Week 1", "Week 2", "Week 3", "Week 4"}
-            });
-            ch.Series = new SeriesCollection
-            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                var _bus = new Business(dao);
+
+                // xu li cac ngay
+
+                var Week03_end = DateTime.Now.AddDays(-DayoftheWeek[GetCurentDayOfTheWeek()]);
+                var Week03_start = Week03_end.AddDays(-6);
+                var Week02_end = Week03_start.AddDays(-1);
+                var Week02_start = Week02_end.AddDays(-6);
+                var Week01_end = Week02_start.AddDays(-1);
+                var Week01_start = Week01_end.AddDays(-6);
+                var Week04_start = Week03_end.AddDays(1);
+                var Week04_end = DateTime.Now;
+                // xu li doanh thu cac khoan thoi gian
+
+                List<string> _dates = _bus.getAllPurchaseDay();
+
+                // tuan 1
+                var revenue_week01 = 0;
+                var profit_week01 = 0;
+                List<string> _week01_dates = new List<string>();
+                for (int i = 0; i < _dates.Count; ++i)
+                {
+                    if ((checkAfter(_dates[i], Week01_start.ToString("d/M/yyyy")) || _dates[i] == Week01_start.ToString("d/M/yyyy")) && (!checkAfter(_dates[i], Week01_end.ToString("d/M/yyyy"))))
+                    {
+                        _week01_dates.Add(_dates[i]);
+                    }
+                }
+                for (int j = 0; j < _week01_dates.Count; ++j)
+                {
+                    profit_week01 += _bus.AnnualProfit(_week01_dates[j]);
+                    revenue_week01 += _bus.AnnualRevenue(_week01_dates[j]); // use date as year to be param
+                }
+
+                // tuan 2
+                var revenue_week02 = 0;
+                var profit_week02 = 0;
+                List<string> _week02_dates = new List<string>();
+                for (int i = 0; i < _dates.Count; ++i)
+                {
+                    if ((checkAfter(_dates[i], Week02_start.ToString("d/M/yyyy")) || _dates[i] == Week02_start.ToString("d/M/yyyy")) && (!checkAfter(_dates[i], Week02_end.ToString("d/M/yyyy"))))
+                    {
+                        _week02_dates.Add(_dates[i]);
+                    }
+                }
+                for (int j = 0; j < _week02_dates.Count; ++j)
+                {
+                    profit_week02 += _bus.AnnualProfit(_week02_dates[j]);
+                    revenue_week02 += _bus.AnnualRevenue(_week02_dates[j]); // use date as year to be param
+                }
+
+                // tuan 3
+                var revenue_week03 = 0;
+                var profit_week03 = 0;
+                List<string> _week03_dates = new List<string>();
+                for (int i = 0; i < _dates.Count; ++i)
+                {
+                    if ((checkAfter(_dates[i], Week03_start.ToString("d/M/yyyy")) || _dates[i] == Week03_start.ToString("d/M/yyyy")) && (!checkAfter(_dates[i], Week03_end.ToString("d/M/yyyy"))))
+                    {
+                        _week03_dates.Add(_dates[i]);
+                    }
+                }
+                for (int j = 0; j < _week03_dates.Count; ++j)
+                {
+                    profit_week03 += _bus.AnnualProfit(_week03_dates[j]);
+                    revenue_week03 += _bus.AnnualRevenue(_week03_dates[j]); // use date as year to be param
+                }
+
+                // tuan 4
+                var revenue_week04 = 0;
+                var profit_week04 = 0;
+                List<string> _week04_dates = new List<string>();
+                for (int i = 0; i < _dates.Count; ++i)
+                {
+                    if ((checkAfter(_dates[i], Week04_start.ToString("d/M/yyyy")) || _dates[i] == Week04_start.ToString("d/M/yyyy")) && (!checkAfter(_dates[i], Week04_end.ToString("d/M/yyyy"))))
+                    {
+                        _week04_dates.Add(_dates[i]);
+                    }
+                }
+                for (int j = 0; j < _week04_dates.Count; ++j)
+                {
+                    profit_week04 += _bus.AnnualProfit(_week04_dates[j]);
+                    revenue_week04 += _bus.AnnualRevenue(_week04_dates[j]); // use date as year to be param
+                }
+
+                Chart.Children.RemoveRange(0, 1); // xoa chart cu
+                CartesianChart ch = new CartesianChart();
+                ch.AxisX.Add(new Axis
+                {
+                    Title = "Week (4 nearest weeks)",
+                    Labels = new[] { Week01_start.ToString("dd/MM/yyyy")+" - "+Week01_end.ToString("dd/MM/yyyy"), Week02_start.ToString("dd/MM/yyyy") + " - " + Week02_end.ToString("dd/MM/yyyy"), Week03_start.ToString("dd/MM/yyyy") + " - " + Week03_end.ToString("dd/MM/yyyy"), Week04_start.ToString("dd/MM/yyyy") + " - " + Week04_end.ToString("dd/MM/yyyy")+"(Today)" }
+                });
+                ch.Series = new SeriesCollection
+                {
                 new ColumnSeries
                 {
                     Title = "Revenue:",
-                    Values = new ChartValues<decimal>{5,6,7,8}
-                    
+                    Values = new ChartValues<decimal>{ revenue_week01, revenue_week02, revenue_week03, revenue_week04 }
+
                 },
                 new ColumnSeries
                 {
                     Title = "Profit:",
-                    Values = new ChartValues<decimal>{3,2,5,4}
+                    Values = new ChartValues<decimal>{ profit_week01, profit_week02, profit_week03, profit_week04 }
                 }
             };
-            Chart.Children.Add(ch);
+                Chart.Children.Add(ch);
+
+
+            }
+
         }
 
         private void monthly_Click(object sender, RoutedEventArgs e)
@@ -112,7 +217,7 @@ namespace BookStore.MyUserControl
                 CartesianChart ch = new CartesianChart();
                 ch.AxisX.Add(new Axis
                 {
-                    Title = "Month",
+                    Title = "Month (3 nearest months)",
                     Labels = new[] { month_2.ToString() +"/" + year_2.ToString(), month_1.ToString() + "/" + year_1.ToString(), currentmonth.ToString() + "/" + currentyear.ToString() }
                 });
                 ch.Series = new SeriesCollection
@@ -147,7 +252,7 @@ namespace BookStore.MyUserControl
                 CartesianChart ch = new CartesianChart();
                 ch.AxisX.Add(new Axis
                 {
-                    Title = "Year",
+                    Title = "Year (4 nearest years)",
                     Labels = new[] { (DateTime.Now.Year - 3).ToString(), (DateTime.Now.Year - 2).ToString(), (DateTime.Now.Year - 1).ToString(), DateTime.Now.Year.ToString() }
                 });
                 ch.Series = new SeriesCollection
@@ -176,7 +281,7 @@ namespace BookStore.MyUserControl
             {
                 if(checkAfter(startDate, endDate) == true)
                 {
-                    MessageBox.Show("The Starting Date must be before the ending date");
+                    MessageBox.Show("The starting date must be before the ending date");
                 }
                 else
                 {
@@ -205,25 +310,29 @@ namespace BookStore.MyUserControl
                             revenue += _bus.AnnualRevenue(_validDates[j]); // use date as year to be param
 
                         }
-                        MessageBox.Show(revenue.ToString());
-                        MessageBox.Show(profit.ToString());
                         Chart.Children.RemoveRange(0, 1);
                         CartesianChart ch = new CartesianChart();
+
+                        ch.AxisX.Add(new Axis
+                        {
+                            Title = "Date",
+                            Labels = new[] {startDate +" - " + endDate }
+                        });
                         ch.Series = new SeriesCollection
                         {
 
-                new ColumnSeries
-                {
-                    Title = "Revenue:",
-                    Values = new ChartValues<decimal>{ revenue}
+                            new ColumnSeries
+                            {
+                                Title = "Revenue:",
+                                Values = new ChartValues<decimal>{ revenue}
 
-                },
-                new ColumnSeries
-                {
-                    Title = "Profit:",
-                    Values = new ChartValues<decimal>{ profit }
-                }
-                         };
+                            },
+                            new ColumnSeries
+                            {
+                                Title = "Profit:",
+                                Values = new ChartValues<decimal>{ profit }
+                            }
+                        };
                         Chart.Children.Add(ch);
 
                     }
@@ -295,9 +404,15 @@ namespace BookStore.MyUserControl
             Window window = Window.GetWindow(this);
             window.Closing += window_Closing;
         }
+        
         void window_Closing(object sender, global::System.ComponentModel.CancelEventArgs e)
         {
             AppConfig.SetValue(AppConfig.Page, "2");
+        }
+        
+        public string GetCurentDayOfTheWeek()
+        {
+            return DateTime.Now.ToString("dddd");
         }
     }
 }

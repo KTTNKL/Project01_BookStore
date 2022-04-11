@@ -181,5 +181,11 @@ namespace BookStore.Database
         public void insertPurchaseDetailRecord(int purchase_id, int book_id, int quantity, int price, int total_price) {
             _dao.insertPurchaseDetailRecord(purchase_id, book_id, quantity, price, total_price);
         }
+      
+        public int NumberOfOrder()
+        {
+            return _dao.NumberOfOrder();
+        }
+
     }
 }
