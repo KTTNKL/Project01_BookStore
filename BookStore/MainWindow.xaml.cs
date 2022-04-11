@@ -26,7 +26,6 @@ namespace BookStore
     /// </summary>
     public partial class MainWindow : Window
     {
-        Business _bus = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,24 +40,11 @@ namespace BookStore
             new TabItem() { Header="Report",Content = new ReportUserControl()}
             };
             tabs.ItemsSource = screens;
-            tabs.SelectedIndex = 0;
+            var page = AppConfig.GetValue(AppConfig.Page);
 
-            string? connectionString = AppConfig.ConnectionString();
-            var dao = new SqlDataAccess(connectionString!);
-            if (dao.CanConnect())
-            {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                _bus = new Business(dao);
+            tabs.SelectedIndex = Int32.Parse(page);
 
-
-                MessageBox.Show("Connect successfully");
-
-            }
-            else
-            {
-                MessageBox.Show("Cannot connect to db");
-            }
+           
         }
     }
 }

@@ -150,16 +150,15 @@ namespace BookStore
                 }
                 else
                 {
+                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("d/M/yyyy"), "đang giao");
+                    int id = _bus.LastestPurchaseID();
                     foreach (var book in _saleList)
                     {
                         _bus.UpdateBook(book.id, book.name, book.author, book.publicYear, book.bookCover, book.purchasePrice, book.sellingPrice, book.stockNumer, book.sellingNumber, book.category_id);
+                        _bus.insertPurchaseDetailRecord(id, book.id, book.buyNumber, book.sellingPrice, book.saleTotalPrice);
+;                    }
 
-                    }
-
-                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("M/d/yyyy"), "đang giao");
-                    int id= _bus.LastestPurchaseID();
-
-                    Debug.WriteLine(id);
+                    
                     
                     DialogResult = true;
 

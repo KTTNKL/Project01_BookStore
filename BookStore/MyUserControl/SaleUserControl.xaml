@@ -117,6 +117,7 @@
                 </Button.Template>
             </Button>
         </StackPanel>
+        <TextBlock Margin="5,10,5,10" Name="numberOfOrderTextBlock" Width="150" Canvas.Left="450" Canvas.Top="10"/>
 
         <ListView Margin="15,20,0,20" Name="orderComboBox" Height="400" Canvas.Top="54" Width="848">
             <ListView.ItemContainerStyle>

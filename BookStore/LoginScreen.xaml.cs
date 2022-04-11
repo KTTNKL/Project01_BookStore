@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -27,29 +28,19 @@ namespace BookStore
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            try
+            var status = AppConfig.GetValue(AppConfig.Status);
+            if (status == "Login")
             {
-                var cypherText = AppConfig.GetValue(AppConfig.Password);
-                var cypherTextInBytes = Convert.FromBase64String(cypherText!);
-
-                var entropyText = AppConfig.GetValue(AppConfig.Entropy);
-                var entropyTextInBytes = Convert.FromBase64String(entropyText);
-
-                var passwordInBytes = ProtectedData.Unprotect(cypherTextInBytes,
-                    entropyTextInBytes, DataProtectionScope.CurrentUser);
-
-                var password = Encoding.UTF8.GetString(passwordInBytes);
-                //MessageBox.Show("Last Login:" + AppConfig.GetValue(AppConfig.Username) + "," + password);
                 var screen = new MainWindow();
-                
+
                 screen.Show();
 
                 this.Close();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("First Login");
+            else { 
+                
             }
+            
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
@@ -72,14 +63,26 @@ namespace BookStore
             AppConfig.SetValue(AppConfig.Password, cypherTextBase64);
             AppConfig.SetValue(AppConfig.Entropy, entropyBase64);
             AppConfig.SetValue(AppConfig.Username, usernameTextBox.Text);
-            if (usernameTextBox.Text == "admin" && passwordTextBox.Password.ToString() == "qwe3@1")
 
+            Business _bus = null;
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
             {
+                dao.Connect();
                 var screen = new MainWindow();
-                screen.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                screen.Owner = this;
+               
                 screen.Show();
+                this.Close();
+
+                AppConfig.SetValue(AppConfig.Status, "Login");
+
             }
+            else
+            {
+                MessageBox.Show("Wrong passwork. Cannot connect to db");
+            }
+           
         }
     }
 }
