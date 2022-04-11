@@ -132,6 +132,9 @@ namespace BookStore.MyUserControl
                 // Thao tác với CSDL ở đây
                 var _bus = new Business(dao);
 
+                // hiển thị số lượng order
+                numberOfOrderTextBlock.Text = "Số lượng đơn hàng: " + _bus.NumberOfOrder();
+
                 _list = _bus.ReadAllPurchase();
                 orderComboBox.ItemsSource = _list;
                 calcPage();

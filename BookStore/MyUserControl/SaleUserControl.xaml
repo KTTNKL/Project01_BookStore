@@ -12,7 +12,9 @@
             <Button Name="addNewOrder" Click="addNewOrder_Click" Content="Add Order" Width="100" Height="50"/>
             <Button Name="deleteOrder" Click="deleteOrder_Click" Content="Delete Order" Width="100" Height="50"/>
             <Button Name="editOrder" Click="editOrder_Click" Content="Update Order" Width="100" Height="50"/>
+
         </StackPanel>
+        <TextBlock Margin="5,10,5,10" Name="numberOfOrderTextBlock" Width="150" Canvas.Left="450" Canvas.Top="10"/>
 
         <ListView Margin="10" Name="orderComboBox" Height="342" Canvas.Top="54" Width="833">
             <ListView.View>
@@ -23,7 +25,7 @@
                     <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding date}" />
                     <GridViewColumn Header="Total" Width="150" DisplayMemberBinding="{Binding total}" />
                     <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding status}" />
-                    
+
                 </GridView>
             </ListView.View>
         </ListView>

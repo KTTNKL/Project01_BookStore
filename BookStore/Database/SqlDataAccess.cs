@@ -753,6 +753,19 @@ namespace BookStore.Database
             reader.Close();
         }
 
+        public int NumberOfOrder()
+        {
+            var sql = "SELECT COUNT(purchase_id) AS TOTAL FROM Purchase ";
+            var command = new SqlCommand(sql, _connection);
+            var reader = command.ExecuteReader();
+            var result = 0;
+            if(reader.Read())
+            {
+                result = reader["TOTAL"] as int? ?? default(int);
+            }
+            reader.Close();
+            return result;
+        }
 
             
     }
