@@ -178,5 +178,10 @@ namespace BookStore.Database
             _dao.updateStatusOrder(id, status);
         }
 
+        public int NumberOfOrder()
+        {
+            return _dao.NumberOfOrder();
+        }
+
     }
 }
