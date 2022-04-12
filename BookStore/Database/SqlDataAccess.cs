@@ -50,7 +50,17 @@ namespace BookStore.Database
 
         public void Connect()
         {
-            _connection.Open();
+            try
+            {
+                _connection.Open();
+            }
+            catch (Exception ex)
+            {
+                string? connectionString = AppConfig.ConnectionString2();
+                _connection = new SqlConnection(connectionString);
+                _connection.Open();
+            }
+
         }
 
         public List<Category> ReadAllCategory()

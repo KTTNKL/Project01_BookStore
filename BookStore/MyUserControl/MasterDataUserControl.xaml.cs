@@ -189,9 +189,10 @@ namespace BookStore.MyUserControl
                     _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
                 }
                 pagingComboBox.ItemsSource = _vm.Pages;
-            } catch (Exception ex)
+            } 
+            catch (Exception ex)
             {
-                MessageBox.Show("Cannot connect to database");
+                //MessageBox.Show("Cannot connect to database");
             }
         }
 
@@ -622,60 +623,70 @@ namespace BookStore.MyUserControl
 
         private void sanPhamHetHangButton_Click(object sender, RoutedEventArgs e)
         {
-            Business _bus = null;
-            string? connectionString = AppConfig.ConnectionString();
-            var dao = new SqlDataAccess(connectionString!);
-            if (dao.CanConnect())
+            try
             {
-                dao.Connect();
-                // Thao tác với CSDL ở đây
-                _bus = new Business(dao);
-                var books = _bus.countOutOfStock();
-                numberOfBookTextBlock.Text = "Số lượng sách :" + books.Count;
+                Business _bus = null;
+                string? connectionString = AppConfig.ConnectionString();
+                var dao = new SqlDataAccess(connectionString!);
+                if (dao.CanConnect())
+                {
+                    dao.Connect();
+                    // Thao tác với CSDL ở đây
+                    _bus = new Business(dao);
+                    var books = _bus.countOutOfStock();
+                    numberOfBookTextBlock.Text = "Số lượng sách :" + books.Count;
 
-                for (int i=0;i< _categories.Count; i++)
-                {
-                    _categories[i].Books.Clear();
-                   
-                }
-                for( int i=0;i< books.Count; i++)
-                {
-                    for( int j=0;j< _categories.Count; j++)
+                    for (int i = 0; i < _categories.Count; i++)
                     {
-                        if (_categories[j].ID == books[i].category_id)
+                        _categories[i].Books.Clear();
+
+                    }
+                    for (int i = 0; i < books.Count; i++)
+                    {
+                        for (int j = 0; j < _categories.Count; j++)
                         {
-                            _categories[j].Books.Add(books[i]);
+                            if (_categories[j].ID == books[i].category_id)
+                            {
+                                _categories[j].Books.Add(books[i]);
+                            }
                         }
                     }
-                }
 
-                pageNumberComboBox.SelectedIndex = 1;
-                categoriesComboBox.SelectedIndex = currentCat;
-                int cat = currentCat;
-                if (cat < 0)
-                {
-                    cat = 0;
-                }
-                if (cat >= 0)
-                {
-                    _currentPage = 1;
-                    _vm.Books = _categories[cat].Books;
-                    _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
-                    _totalItems = _vm.Books.Count;
-                    _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
-                    booksListview.ItemsSource = _vm.SelectedBooks;
-                    _vm.Pages = new List<Page>();
-                    for (int j = 0; j < _totalPages; j++)
+                    pageNumberComboBox.SelectedIndex = 1;
+                    categoriesComboBox.SelectedIndex = currentCat;
+                    int cat = currentCat;
+                    if (cat < 0)
                     {
-                        _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                        cat = 0;
                     }
-                    pagingComboBox.ItemsSource = _vm.Pages;
+                    if (cat >= 0)
+                    {
+                        _currentPage = 1;
+                        _vm.Books = _categories[cat].Books;
+                        _vm.SelectedBooks = _vm.Books.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+                        _totalItems = _vm.Books.Count;
+                        _totalPages = _vm.Books.Count / _itemsPerPage + (_vm.Books.Count % _itemsPerPage == 0 ? 0 : 1);
+                        booksListview.ItemsSource = _vm.SelectedBooks;
+                        _vm.Pages = new List<Page>();
+                        for (int j = 0; j < _totalPages; j++)
+                        {
+                            _vm.Pages.Add(new Page() { currentPage = j + 1, totalPage = _totalPages });
+                        }
+                        pagingComboBox.ItemsSource = _vm.Pages;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Cannot connect to database");
             }
         }
 
         private void reset_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
             Business _bus = null;
             string? connectionString = AppConfig.ConnectionString();
             var dao = new SqlDataAccess(connectionString!);
@@ -722,6 +733,12 @@ namespace BookStore.MyUserControl
             {
                 numberOfBookTextBlock.Text = "Số lượng sách :" + _bus.countBook().ToString();
             }
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Cannot connect to database");
+            }
         }
         private void UpdateCategoryButton_Click(object sender, RoutedEventArgs e)
         {
@@ -765,8 +782,21 @@ namespace BookStore.MyUserControl
                     // Thao tác với CSDL ở đây
                     var _bus = new Business(dao);
 
+                    var oldBooksCount = _bus.countBook();
+
                     _bus.insertBook(newBook.name, newBook.author, newBook.publicYear, newBook.bookCover, newBook.purchasePrice, newBook.sellingPrice, newBook.stockNumer, newBook.sellingNumber, newBook.category_id);
-                    MessageBox.Show("Insert Book successfully!");
+                    var newBooksCount = _bus.countBook();
+                    if (oldBooksCount != newBooksCount)
+                    {
+                        MessageBox.Show("Insert Book successfully!");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Insert Book Fail!");
+
+                    }
+
 
                     // cap nhat lai category
                     for (int i = 0; i < _categories.Count; i++)

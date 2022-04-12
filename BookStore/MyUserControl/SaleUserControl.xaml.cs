@@ -121,6 +121,7 @@ namespace BookStore.MyUserControl
   
         private void Sale_Loaded(object sender, RoutedEventArgs e)
         {
+            try { 
 
             string? connectionString = AppConfig.ConnectionString();
             var dao = new SqlDataAccess(connectionString!);
@@ -143,6 +144,10 @@ namespace BookStore.MyUserControl
             else
             {
                 MessageBox.Show("Cannot connect to db");
+            }
+        }catch (Exception ex)
+            {
+                MessageBox.Show("Cannot connect to database");
             }
             Window window = Window.GetWindow(this);
             window.Closing += window_Closing;
@@ -188,55 +193,61 @@ namespace BookStore.MyUserControl
 
         private void viewOrder_Click(object sender, RoutedEventArgs e)
         {
-            int index = (_currentPage-1)*10+orderComboBox.SelectedIndex;
-            if(index >= 0)
+            try
             {
-                string? connectionString = AppConfig.ConnectionString();
-                var dao = new SqlDataAccess(connectionString!);
-                if (dao.CanConnect())
+                int index = (_currentPage - 1) * 10 + orderComboBox.SelectedIndex;
+                if (index >= 0)
                 {
-                    dao.Connect();
-                    // Thao tác với CSDL ở đây
-                    var _bus = new Business(dao);
-                    var detailOrderList = _bus.getAllDetailOrder(_list[index].id);
-
-                    for (int i = 0; i < detailOrderList.Count(); i++)
+                    string? connectionString = AppConfig.ConnectionString();
+                    var dao = new SqlDataAccess(connectionString!);
+                    if (dao.CanConnect())
                     {
-                        detailOrderList[i].name = _bus.GetBookNameById(detailOrderList[i].book_id);
+                        dao.Connect();
+                        // Thao tác với CSDL ở đây
+                        var _bus = new Business(dao);
+                        var detailOrderList = _bus.getAllDetailOrder(_list[index].id);
+
+                        for (int i = 0; i < detailOrderList.Count(); i++)
+                        {
+                            detailOrderList[i].name = _bus.GetBookNameById(detailOrderList[i].book_id);
+                        }
+
+                        var screen = new DetailPurchaseWindow(detailOrderList, _list[index].customerName, _list[index].tel, _list[index].address, _list[index].total, _list[index].status);
+                        if (screen.ShowDialog() == true)
+                        {
+                            if (screen.statusOrder == 0)
+                            {
+                                _bus.updateStatusOrder(_list[index].id, "shipping");
+                                _list[index].status = "shipping";
+                            }
+                            else if (screen.statusOrder == 1)
+                            {
+                                _bus.updateStatusOrder(_list[index].id, "shipped");
+                                _list[index].status = "shipped";
+                            }
+                            else
+                            {
+                                _bus.updateStatusOrder(_list[index].id, "cancel");
+                                _list[index].status = "cancel";
+                            }
+                            orderComboBox.ItemsSource = _list;
+                        }
                     }
-
-                    var screen = new DetailPurchaseWindow(detailOrderList, _list[index].customerName, _list[index].tel, _list[index].address, _list[index].total, _list[index].status);
-                    if (screen.ShowDialog() == true) 
+                    else
                     {
-                        if (screen.statusOrder == 0)
-                        {
-                            _bus.updateStatusOrder(_list[index].id, "shipping");
-                            _list[index].status = "shipping";
-                        }
-                        else if (screen.statusOrder == 1)
-                        {
-                            _bus.updateStatusOrder(_list[index].id, "shipped");
-                            _list[index].status = "shipped";
-                        }
-                        else
-                        {
-                            _bus.updateStatusOrder(_list[index].id, "cancel");
-                            _list[index].status = "cancel";
-                        }
-                        orderComboBox.ItemsSource = _list;
+                        MessageBox.Show("Cannot connect to db");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Cannot connect to db");
+                    MessageBox.Show("Please choose an order");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Please choose an order");
+                MessageBox.Show("Book detail has been deleted (This is caused by importing new books or deleting books). Cannot view order detail");
             }
 
-            
 
         }
     }
