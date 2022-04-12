@@ -5,14 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="LoginScreen" Height="400" Width="400" Loaded="Window_Loaded">
+        Title="LOGIN" Height="400" Width="400" Loaded="Window_Loaded" Background="#4895ef">
     <Grid>
         <Canvas>
-            <Label Content="Please enter _Username:" Target="{Binding ElementName=usernameTextBox}" Canvas.Left="88" Canvas.Top="90"/>
-            <TextBox x:Name="usernameTextBox" Width="228" Height="35" Padding="8" Canvas.Left="88" Canvas.Top="131"/>
-            <Label Content="Please enter _Password:" Target="{Binding ElementName=passwordTextBox}" Canvas.Left="92" Canvas.Top="171" />
-            <PasswordBox x:Name="passwordTextBox" Width="228" Height="35" Padding="8" Canvas.Left="88" Canvas.Top="219" />
-            <Button x:Name="loginButton" IsDefault="True" Click="loginButton_Click" Content="Đăng nhập" Width="80" Height="35" Canvas.Left="155" Canvas.Top="293" />
+            <Label Content="Please enter _Username:" Target="{Binding ElementName=usernameTextBox}" Canvas.Left="88" Canvas.Top="90" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+            <TextBox x:Name="usernameTextBox" Width="228" Height="35" Padding="8" Canvas.Left="88" Canvas.Top="131" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </TextBox.Style>
+
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Label Content="Please enter _Password:" Target="{Binding ElementName=passwordTextBox}" Canvas.Left="92" Canvas.Top="171" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+            <PasswordBox x:Name="passwordTextBox" Width="228" Height="35" Padding="8" Canvas.Left="88" Canvas.Top="219" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+                <PasswordBox.Style>
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="PasswordBox">
+                                    <Border CornerRadius="20" x:Name="Bd" Background="LightGray" BorderBrush="Gray" BorderThickness="1" OpacityMask="{x:Null}">
+                                        <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" x:Name="PART_ContentHost" Template="{DynamicResource ScrollViewerControlTemplate1}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </PasswordBox.Style>
+
+
+            </PasswordBox>
+            <Button x:Name="loginButton" IsDefault="True" Click="loginButton_Click" Content="Đăng nhập" Width="80" Height="35" Canvas.Left="162" Canvas.Top="294" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#f72585"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Canvas>
     </Grid>
 </Window>

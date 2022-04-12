@@ -257,9 +257,9 @@
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock" Width="150"   Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
-            <TextBlock Margin="430,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tìm sách" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
-            <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="135" Height="40">
+            <TextBlock Margin="5,10,5,10" HorizontalAlignment="Center" VerticalAlignment="Center" Name="numberOfBookTextBlock" Width="150"   Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBlock Margin="430,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tìm sách" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="135" Height="40" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -301,7 +301,7 @@
             </Button>
         </StackPanel>
         <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Thể loại" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Thể loại" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
            <ComboBox SelectionChanged="categoriesComboBox_SelectionChanged" Name="categoriesComboBox" Width="100" Height="35" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -309,15 +309,15 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Số trang" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Số trang" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
             <ComboBox SelectionChanged="pageNumber_SelectionChanged" Name="pageNumberComboBox" Width="100" Height="35" >
                 <ComboBoxItem>5</ComboBoxItem>
                 <ComboBoxItem>10</ComboBoxItem>
             </ComboBox>
 
 
-            <TextBlock Margin="290,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
-            <TextBox Padding="8" TextWrapping="Wrap"  Name="lowPrice" Width="60" Height="40">
+            <TextBlock Margin="290,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Giá từ" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox Padding="8" TextWrapping="Wrap"  Name="lowPrice" Width="60" Height="40" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -331,8 +331,8 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="tới" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
-            <TextBox Padding="8" TextWrapping="Wrap"  Name="highPrice" Width="60" Height="40">
+            <TextBlock Margin="5,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="tới" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+            <TextBox Padding="8" TextWrapping="Wrap"  Name="highPrice" Width="60" Height="40" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>

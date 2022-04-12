@@ -42,7 +42,7 @@
     </UserControl.Resources>
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
-            <Button Margin="5,0,0,0" Name="viewOrder" Content="View Detail" Width="100" Height="50" Click="viewOrder_Click" Foreground="LightGray" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button Margin="5,0,0,0" Name="viewOrder" Content="View Detail" Width="100" Height="50" Click="viewOrder_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -117,7 +117,7 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-        <TextBlock Margin="5,10,5,10" Name="numberOfOrderTextBlock" Width="150" Canvas.Left="450" Canvas.Top="10"/>
+        <TextBlock Margin="5,10,5,10" Name="numberOfOrderTextBlock" Width="150" Canvas.Left="480" Canvas.Top="38" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
 
         <ListView Margin="15,20,0,20" Name="orderComboBox" Height="400" Canvas.Top="54" Width="848">
             <ListView.ItemContainerStyle>

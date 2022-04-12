@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900"
-                     Loaded="RibbonWindow_Loaded">
+                     Loaded="RibbonWindow_Loaded" Background="#4895ef">
 
     <DockPanel LastChildFill="True">
        

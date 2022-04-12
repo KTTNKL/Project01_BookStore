@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="UpdateCategoryWindow" Height="200" Width="400">
+        Title="UpdateCategoryWindow" Height="200" Width="400" Background="#4895ef">
     <Canvas>
         <ComboBox Name="updateCategoriesComboBox" Width="200" Height="35" Canvas.Left="100" Canvas.Top="10" >
             <ComboBox.ItemTemplate>
@@ -14,8 +14,63 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBox Name="NewName" Text="{Binding Name}" Canvas.Left="100" Canvas.Top="65" Width="200" Height="27"></TextBox>
-        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="91" Canvas.Top="113"/>
-        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="232" Canvas.Top="114" RenderTransformOrigin="0.471,0.142"/>
+        <TextBox Name="NewName" Text="{Binding Name}" Canvas.Left="100" Canvas.Top="65" Width="200" Height="35" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="91" Canvas.Top="113" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="232" Canvas.Top="114" RenderTransformOrigin="0.471,0.142" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Canvas>
 </Window>

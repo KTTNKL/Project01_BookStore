@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStore.MyUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="Report_Loaded" Background="#4895ef">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="Report_Loaded" Background="White">
     <Canvas>
         <StackPanel Orientation="Horizontal" Canvas.Left="10" Width="405" Height="57" Canvas.Top="10">
             <Button Name="weeklyButton" Content="Weekly Sales" Width="100" Height="50" Click="weekly_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
