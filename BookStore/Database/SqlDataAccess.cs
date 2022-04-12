@@ -36,6 +36,7 @@ namespace BookStore.Database
                     _connection = new SqlConnection(connectionString);
                     _connection.Open();
                     _connection.Close();
+                    return true;
                 }
                 catch (Exception ex2)
                 {

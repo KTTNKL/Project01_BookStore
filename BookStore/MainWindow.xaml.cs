@@ -41,9 +41,14 @@ namespace BookStore
             };
             tabs.ItemsSource = screens;
             var page = AppConfig.GetValue(AppConfig.Page);
-
-            tabs.SelectedIndex = Int32.Parse(page);
-
+            try
+            {
+                tabs.SelectedIndex = Int32.Parse(page);
+            }
+            catch (Exception)
+            {
+                tabs.SelectedIndex = 0;
+            }
            
         }
     }
