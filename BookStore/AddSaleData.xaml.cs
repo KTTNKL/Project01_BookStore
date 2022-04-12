@@ -150,7 +150,7 @@ namespace BookStore
                 }
                 else
                 {
-                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("d/M/yyyy"), "đang giao");
+                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("d/M/yyyy"), "shipping");
                     int id = _bus.LastestPurchaseID();
                     foreach (var book in _saleList)
                     {

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Windows\project 1\BookStore\obj\Debug\net6.0-windows\
+C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\obj\Debug\net6.0-windows\
 BookStore
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\Windows\project 1\BookStore\App.xaml
-4-1241797257
+C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\App.xaml
+15-833894356
 
-11895026416
-208-2030753468
-MainWindow.xaml;MyUserControl\MasterDataUserControl.xaml;MyUserControl\ReportUserControl.xaml;MyUserControl\SaleUserControl.xaml;
+252003463
+2111529930329
+addBookWindow.xaml;addCategoryWindow.xaml;AddSaleData.xaml;deleteCategoryWindow.xaml;DetailBookWindow.xaml;DetailPurchaseWindow.xaml;EditBookWindow.xaml;EditQuantityScreen.xaml;LoginScreen.xaml;MainWindow.xaml;MyUserControl\MasterDataUserControl.xaml;MyUserControl\ReportUserControl.xaml;MyUserControl\SaleUserControl.xaml;PickDateWindow.xaml;UpdateCategoryWindow.xaml;
 
 False
 

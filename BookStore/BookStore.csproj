@@ -9,15 +9,22 @@
 
   <ItemGroup>
     <None Remove="Icons\addBook.jpg" />
+    <None Remove="Icons\addCat.ico" />
     <None Remove="Icons\delete.jpg" />
     <None Remove="Icons\deleteBook.jpg" />
+    <None Remove="Icons\deleteCat.ico" />
     <None Remove="Icons\editBook.png" />
     <None Remove="Icons\excel.png" />
     <None Remove="Icons\plus.jpg" />
+    <None Remove="Icons\search.webp" />
+    <None Remove="Icons\searchIcon.png" />
+    <None Remove="Icons\updateCat.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
   </ItemGroup>
@@ -30,13 +37,18 @@
 
   <ItemGroup>
     <Resource Include="Icons\addBook.jpg" />
+    <Resource Include="Icons\addCat.ico" />
     <Resource Include="Icons\delete.jpg" />
     <Resource Include="Icons\deleteBook.jpg" />
+    <Resource Include="Icons\deleteCat.ico" />
     <Resource Include="Icons\editBook.png" />
     <Resource Include="Icons\excel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\plus.jpg" />
+    <Resource Include="Icons\search.webp" />
+    <Resource Include="Icons\searchIcon.png" />
+    <Resource Include="Icons\updateCat.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +116,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\1_9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\2_1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\2_10.jpg">
