@@ -76,7 +76,7 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-        <TextBlock Text="From:" Canvas.Left="382" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+        <TextBlock Text="From:" Canvas.Left="382" Canvas.Top="14" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
         <TextBlock Text="To:" Canvas.Left="523" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
         <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="668" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
             <Button.Style>
@@ -144,9 +144,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label x:Name="StartDate" Content="N/A" Canvas.Left="420" Canvas.Top="9"  Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
-        <Label x:Name="EndDate" Content="N/A" Canvas.Left="556" Canvas.Top="9" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
-        <Label Content="-" Canvas.Left="503" Canvas.Top="9" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label x:Name="StartDate" Content="N/A" Canvas.Left="420" Canvas.Top="9"  Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label x:Name="EndDate" Content="N/A" Canvas.Left="556" Canvas.Top="9" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="-" Canvas.Left="503" Canvas.Top="9" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
         <Grid Name="Chart" Height="338" Width="748" Canvas.Left="26" Canvas.Top="102"></Grid>
         <!--<lvc:CartesianChart Series="{Binding ch}" Canvas.Left="10" Canvas.Top="72" Height="335" Width="758"/>-->
     </Canvas>
