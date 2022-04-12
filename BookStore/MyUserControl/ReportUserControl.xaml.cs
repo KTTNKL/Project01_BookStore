@@ -40,7 +40,7 @@ namespace BookStore.MyUserControl
             if (screen.ShowDialog() == true)
             {
                 string date = screen.PickedDate;
-                StartDate.Text = date;
+                StartDate.Content = date;
             }
         }
 
@@ -50,7 +50,7 @@ namespace BookStore.MyUserControl
             if (screen.ShowDialog() == true)
             {
                 string date = screen.PickedDate;
-                EndDate.Text = date;
+                EndDate.Content = date;
             }
         }
 
@@ -275,8 +275,8 @@ namespace BookStore.MyUserControl
 
         private void check_Click(object sender, RoutedEventArgs e)
         {
-            var startDate = StartDate.Text;
-            var endDate = EndDate.Text;
+            var startDate = StartDate.Content.ToString();
+            var endDate = EndDate.Content.ToString();
             if (startDate != "N/A" && endDate != "N/A")
             {
                 if(checkAfter(startDate, endDate) == true)
