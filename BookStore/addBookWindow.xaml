@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="addBookWindow" Height="450" Width="1000">
+        Title="ADD NEW BOOK" Height="450" Width="1000" Background="#4895ef">
     <Canvas>
-        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="78" x:Name="nameTextBox" Text="{Binding name}"></TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="78" x:Name="nameTextBox" Text="{Binding name}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
         <ComboBox Height="34" Width="250" Canvas.Left="710" Canvas.Top="271" Name="categoriesComboBox" SelectionChanged="categoriesComboBox_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -15,23 +28,156 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="78" x:Name="authorTextBox" Text="{Binding author}" ></TextBox>
-        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="183" x:Name="coverTextBox" Text="{Binding bookCover}"/>
-        <TextBox Width="250" Height="34" Canvas.Left="710" Canvas.Top="78" x:Name="publishYearTextBox" Text="{Binding publicYear}"/>
-        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="183" x:Name="buyingPriceTextBox" Text="{Binding purchasePrice}"/>
-        <TextBox Width="250" Height="34" Canvas.Left="710" Canvas.Top="183" x:Name="sellingPriceTextBox" Text="{Binding sellingPrice}"/>
-        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="270" x:Name="stockTextBox" Text="{Binding stockNumer}"/>
-        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="270" x:Name="soldTextBox" Text="{Binding sellingNumber}"/>
-        <Button  x:Name="okButton" IsDefault="True" Content="OK" Canvas.Left="375" Canvas.Top="358" Height="35" Width="80" Click="OKButton_Click"></Button>
-        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" Height="35" Width="80" Canvas.Left="545" Canvas.Top="358"></Button>
-        <Label Content="Name:" Canvas.Left="35" Canvas.Top="47"></Label>
-        <Label Content="Author:" Canvas.Left="375" Canvas.Top="47"/>
-        <Label Content="Publish year:" Canvas.Left="710" Canvas.Top="47"/>
-        <Label Content="Cover:" Canvas.Left="35" Canvas.Top="157"/>
-        <Label Content="Buying price:" Canvas.Left="378" Canvas.Top="157"/>
-        <Label Content="Selling price:" Canvas.Left="710" Canvas.Top="157"/>
-        <Label Content="Stock:" Canvas.Left="36" Canvas.Top="244"/>
-        <Label Content="Sold number:" Canvas.Left="378" Canvas.Top="244"/>
-        <Label Content="Category:" Canvas.Left="710" Canvas.Top="244"/>
+        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="78" x:Name="authorTextBox" Text="{Binding author}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="183" x:Name="coverTextBox" Text="{Binding bookCover}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="710" Canvas.Top="78" x:Name="publishYearTextBox" Text="{Binding publicYear}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="183" x:Name="buyingPriceTextBox" Text="{Binding purchasePrice}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="710" Canvas.Top="183" x:Name="sellingPriceTextBox" Text="{Binding sellingPrice}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="35" Canvas.Top="270" x:Name="stockTextBox" Text="{Binding stockNumer}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Width="250" Height="34" Canvas.Left="375" Canvas.Top="270" x:Name="soldTextBox" Text="{Binding sellingNumber}" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button  x:Name="okButton" IsDefault="True" Content="OK" Canvas.Left="375" Canvas.Top="358" Height="35" Width="80" Click="OKButton_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" Height="35" Width="80" Canvas.Left="545" Canvas.Top="358" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label Content="Name:" Canvas.Left="35" Canvas.Top="47" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="Author:" Canvas.Left="375" Canvas.Top="47" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Publish year:" Canvas.Left="710" Canvas.Top="47" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Cover:" Canvas.Left="35" Canvas.Top="157" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Buying price:" Canvas.Left="378" Canvas.Top="157" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Selling price:" Canvas.Left="710" Canvas.Top="157" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Stock:" Canvas.Left="36" Canvas.Top="244" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Sold number:" Canvas.Left="378" Canvas.Top="244" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Category:" Canvas.Left="710" Canvas.Top="244" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
     </Canvas>
 </Window>

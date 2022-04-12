@@ -5,25 +5,143 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="AddSaleData" Height="550" Width="930" Loaded="Window_Loaded">
+        Title="AddSaleData" Height="550" Width="930" Loaded="Window_Loaded" Background="#4895ef">
     <Window.Resources>
         <local:RelativeToAbsoluteConverter x:Key="imageConverter"/>
     </Window.Resources>
     <Canvas>
-        <Label Content="Name" Canvas.Left="114" Canvas.Top="10"></Label>
-        <Label Content="Telephone" Canvas.Left="388" Canvas.Top="10"></Label>
-        <Label Content="Address" Canvas.Left="114" Canvas.Top="62"></Label>
-        <TextBox Name="NameCustomer" Height="35" Width="200" Canvas.Left="174" Canvas.Top="10"></TextBox>
-        <TextBox Name="AddressCustomer" Height="35" Width="200" Canvas.Left="174" Canvas.Top="62"></TextBox>
-        <TextBox Name="TelephoneCustomer" Height="35" Width="200" Canvas.Left="458" Canvas.Top="10"></TextBox>
-        <Label Name="Total"  Content="Total:" Canvas.Left="791" Canvas.Top="139" RenderTransformOrigin="1.327,0.358"></Label>
+        <Label Content="Name" Canvas.Left="114" Canvas.Top="10" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="Telephone" Canvas.Left="388" Canvas.Top="10" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="Address" Canvas.Left="114" Canvas.Top="62" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <TextBox Name="NameCustomer" Height="35" Width="200" Canvas.Left="174" Canvas.Top="10" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
 
-        <Button x:Name="okButton" IsDefault="True" Content="OK" Width="80" Height="35" Click="okButton_Click" Canvas.Left="700" Canvas.Top="435"/>
-        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="820" Canvas.Top="435"  />
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Name="AddressCustomer" Height="35" Width="200" Canvas.Left="174" Canvas.Top="62" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox Name="TelephoneCustomer" Height="35" Width="200" Canvas.Left="458" Canvas.Top="10" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Label Name="Total"  Content="Total:" Canvas.Left="791" Canvas.Top="139" RenderTransformOrigin="1.327,0.358" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+
+        <Button x:Name="okButton" IsDefault="True" Content="OK" Width="80" Height="35" Click="okButton_Click" Canvas.Left="700" Canvas.Top="435" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="820" Canvas.Top="435" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
 
-        <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="120" Canvas.Left="169" Canvas.Top="135"/>
-        <Button Click="Search_Click" Content="Search" Name="SearchButton"  Width="50" RenderTransformOrigin="5.82,2.657" Canvas.Left="336" Canvas.Top="142"></Button>
+        <TextBox  Padding="8" TextWrapping="Wrap"  Name="SearchTextBox" Width="120" Canvas.Left="169" Canvas.Top="127" Foreground="Black" FontWeight="Medium" VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button Click="Search_Click" Name="SearchButton"  Width="50" RenderTransformOrigin="5.82,2.657" Canvas.Left="294" Canvas.Top="119" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                <Image Source="/Icons/searchIcon.png"/>
+            </StackPanel>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="50" Height="50" CornerRadius="100" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="bookListView" Height="241" Width="450" Canvas.Left="29" Canvas.Top="174">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

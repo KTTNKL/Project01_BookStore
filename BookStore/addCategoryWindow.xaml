@@ -5,10 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="Add New Category" Height="200" Width="400">
+        Title="Add New Category" Height="200" Width="400" Background="#4895ef">
     <Canvas>
-        <TextBox Name="newCategoryTextBox" Text="{Binding Name}" Width="381" Height="59" Canvas.Left="10" Canvas.Top="33"></TextBox>
-        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="91" Canvas.Top="113"/>
-        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="229" Canvas.Top="118"/>
+        <TextBox Name="newCategoryTextBox" Text="{Binding Name}" Width="351" Height="59" Canvas.Left="10" Canvas.Top="33" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Medium">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </TextBox.Style>
+
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="67" Canvas.Top="113" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="226" Canvas.Top="113" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Canvas>
 </Window>

@@ -5,31 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="DetailBookWindow" Height="450" Width="800">
+        Title="BOOK DETAIL" Height="430" Width="650" Background="#4895ef">
     <Window.Resources>
         <local:RelativeToAbsoluteConverter x:Key="imageConverter"/>
     </Window.Resources>
     <Canvas>
-        <Label Content="Name:" Canvas.Left="35" Canvas.Top="42"></Label>
-        <Label Content="Author:" Canvas.Left="35" Canvas.Top="73"/>
-        <Label Content="Publish year:" Canvas.Left="35" Canvas.Top="104"/>
-        <Label Content="Cover:" Canvas.Left="35" Canvas.Top="135"/>
-        <Label Content="Buying price:" Canvas.Left="466" Canvas.Top="73"/>
-        <Label Content="Selling price:" Canvas.Left="466" Canvas.Top="42"/>
-        <Label Content="Stock:" Canvas.Left="466" Canvas.Top="104"/>
-        <Label Content="Sold number:" Canvas.Left="466" Canvas.Top="135"/>
-        <Label Content="Category:" Canvas.Left="466" Canvas.Top="166"/>
+        <Label Content="Name:" Canvas.Left="309" Canvas.Top="68" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="Author:" Canvas.Left="309" Canvas.Top="99" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Publish year:" Canvas.Left="309" Canvas.Top="130" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Buying price:" Canvas.Left="309" Canvas.Top="194" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Selling price:" Canvas.Left="309" Canvas.Top="163" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Stock:" Canvas.Left="309" Canvas.Top="225" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Sold number:" Canvas.Left="309" Canvas.Top="256" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="Category:" Canvas.Left="309" Canvas.Top="287" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
 
-        <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="0, 0, 5, 0" Width="50" Height="50" Source="{Binding bookCover, Converter={StaticResource imageConverter}}" Canvas.Left="48" Canvas.Top="167"/>
-        <Button x:Name="okButton" IsDefault="True" Content="OK" Canvas.Left="375" Canvas.Top="358" Height="35" Width="80" Click="OKButton_Click"></Button>
-        <Label Content="{Binding name}" Canvas.Left="97" Canvas.Top="42" />
-        <Label Content="{Binding author}" Canvas.Left="97" Canvas.Top="73"/>
-        <Label Content="{Binding publicYear}" Canvas.Left="117" Canvas.Top="104"/>
-        <Label Content="{Binding purchasePrice}" Canvas.Left="553" Canvas.Top="42"/>
-        <Label Content="{Binding sellingPrice}" Canvas.Left="558" Canvas.Top="78"/>
-        <Label Content="{Binding stockNumer}" Canvas.Left="517" Canvas.Top="109"/>
-        <Label Content="{Binding sellingNumber}" Canvas.Left="553" Canvas.Top="135"/>
-        <Label Content="{Binding Category.Name}" Canvas.Left="532" Canvas.Top="166"/>
+        <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="0, 0, 5, 0" Width="200" Height="200" Source="{Binding bookCover, Converter={StaticResource imageConverter}}" Canvas.Left="61" Canvas.Top="76"/>
+        <Button x:Name="okButton" IsDefault="True" Content="OK" Canvas.Left="309" Canvas.Top="356" Height="35" Width="80" Click="OKButton_Click" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label Content="{Binding name}" Canvas.Left="371" Canvas.Top="68" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding author}" Canvas.Left="371" Canvas.Top="99" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding publicYear}" Canvas.Left="391" Canvas.Top="130" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding sellingPrice}" Canvas.Left="396" Canvas.Top="163" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding purchasePrice}" Canvas.Left="401" Canvas.Top="199" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding stockNumer}" Canvas.Left="360" Canvas.Top="230" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding sellingNumber}" Canvas.Left="396" Canvas.Top="256" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
+        <Label Content="{Binding Category.Name}" Canvas.Left="375" Canvas.Top="287" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
 
 
 

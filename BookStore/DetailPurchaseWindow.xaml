@@ -5,21 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="DetailPurchaseWindow" Height="550" Width="800">
+        Title="ORDER DETAIL" Height="550" Width="800" Background="#4895ef">
+    <Window.Resources>
+        <Style x:Key="GridViewColumnHeaderStyle1" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Grid>
+                            <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="Transparent">
+                                <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                            </Border>
+                            <Border Name="HeaderBorder"
+                BorderThickness="0,1,0,1"
+                BorderBrush="White"
+                Background="#4361ee"
+                Padding="2,0,2,0">
+                                <ContentPresenter Name="HeaderContent"
+                  Margin="0,0,0,1"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  RecognizesAccessKey="True"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="white" />
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </Window.Resources>
     <Canvas>
-        <Label Content="Customer Name:" Canvas.Left="35" Canvas.Top="10"></Label>
-        <Label Name="CustomerName" Canvas.Left="142" Canvas.Top="10" Height="26" Width="184"></Label>
+        <Label Content="Customer Name:" Canvas.Left="35" Canvas.Top="10" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Name="CustomerName" Canvas.Left="142" Canvas.Top="10" Height="26" Width="184" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
 
-        <Label Content="Customer Phone:" Canvas.Left="35" Canvas.Top="41"></Label>
-        <Label Name="CustomerPhone" Canvas.Left="147" Canvas.Top="41" Height="26" Width="184"></Label>
+        <Label Content="Customer Phone:" Canvas.Left="35" Canvas.Top="41" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Name="CustomerPhone" Canvas.Left="147" Canvas.Top="41" Height="26" Width="184" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
 
-        <Label Content="Customer Address:" Canvas.Left="35" Canvas.Top="72"></Label>
-        <Label Name="CustomerAddress" Canvas.Left="147" Canvas.Top="72" Height="26" Width="184"></Label>
+        <Label Content="Customer Address:" Canvas.Left="35" Canvas.Top="72" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Name="CustomerAddress" Canvas.Left="147" Canvas.Top="72" Height="26" Width="184" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
 
-        <Label Content="Total: " Canvas.Left="609" Canvas.Top="436"></Label>
-        <Label Name="Total" Canvas.Left="655" Canvas.Top="436" Height="26" Width="105"></Label>
+        <Label Content="Total: " Canvas.Left="418" Canvas.Top="59" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Name="Total" Canvas.Left="464" Canvas.Top="59" Height="26" Width="105" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
 
-        <Label Content="Status: " Canvas.Left="418" Canvas.Top="19"></Label>
+        <Label Content="Status: " Canvas.Left="418" Canvas.Top="19" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
 
         <ComboBox SelectionChanged="statusComboBox_SelectionChanged" Name="statusComboBox" Canvas.Left="464" Canvas.Top="23" Width="132">
             <ComboBoxItem>Shipping</ComboBoxItem>
@@ -28,8 +61,14 @@
         </ComboBox>
 
         <ListView Margin="10" Name="detailComboBox" Height="337" Canvas.Top="94" Width="750">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="50" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding book_id }" />
                     <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding name }" />
                     <GridViewColumn Header="quantity" Width="100" DisplayMemberBinding="{Binding quantity }" />
@@ -38,7 +77,49 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="159" Canvas.Top="473"/>
-        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="345" Canvas.Top="473" RenderTransformOrigin="0.471,0.142"/>
+        <Button Name="okBtn" IsDefault="True" Content="OK" Width="80" Height="36" Click="okBtn_Click" Canvas.Left="159" Canvas.Top="473" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Name="cancelBtn" IsCancel="True" Content="Cancel" Width="80" Height="35" Canvas.Left="345" Canvas.Top="473" RenderTransformOrigin="0.471,0.142" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#f72585"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Canvas>
 </Window>
