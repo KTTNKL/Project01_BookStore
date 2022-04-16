@@ -420,11 +420,11 @@ namespace BookStore.Database
 
         }
 
-        public void insertPurchaseRecord(string customer_name, string customer_tel, string customer_address, int total,int profit, string date, string status)
+        public void insertPurchaseRecord(string customer_name, string customer_tel, string customer_address, int total,int profit, string date, string status, int sumBook)
         {
 
-            string query = "INSERT INTO Purchase(customer_name, customer_tel, customer_address, purchase_final_total, purchase_created_at,purchase_status, purchase_final_profit) " +
-                "VALUES(@customer_name,@customer_tel,@customer_address,@total,@date,@status,@profit)";
+            string query = "INSERT INTO Purchase(customer_name, customer_tel, customer_address, purchase_final_total, purchase_created_at,purchase_status, purchase_final_profit,purchase_final_quantity) " +
+                "VALUES(@customer_name,@customer_tel,@customer_address,@total,@date,@status,@profit,@sumBook)";
 
 
             SqlCommand command = new SqlCommand(query, _connection);
@@ -435,7 +435,8 @@ namespace BookStore.Database
             command.Parameters.Add("profit", SqlDbType.Int).Value = profit;
             command.Parameters.Add("date", SqlDbType.NText).Value = date;
             command.Parameters.Add("status", SqlDbType.NText).Value = status;
-           
+            command.Parameters.Add("sumBook", SqlDbType.Int).Value = sumBook;
+
 
             try
             {
@@ -600,6 +601,8 @@ namespace BookStore.Database
             return purchases;
 
         }
+
+
         public List<PurchaseDetail> getAllDetailOrder(int purchaseID)
         {
             var sql = "select* from PurchaseDetail where purchase_id=@id";
@@ -750,8 +753,10 @@ namespace BookStore.Database
             reader.Close();
             return result;
         }
-      
-      public void updateStatusOrder(int id, string status)
+
+     
+
+        public void updateStatusOrder(int id, string status)
         {
             var sql = "update Purchase set purchase_status=@status where purchase_id=@id";
             var command = new SqlCommand(sql, _connection);

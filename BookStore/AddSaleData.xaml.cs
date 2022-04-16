@@ -126,11 +126,13 @@ namespace BookStore
         private void okButton_Click(object sender, RoutedEventArgs e)
         {
             var temp = 0;
+            var sumBook = 0;
             foreach(var book in _saleList)
             {
                 book.stockNumer -= book.buyNumber;
                 book.sellingNumber += book.buyNumber;
                 temp += book.buyNumber * book.purchasePrice;
+                sumBook+=book.buyNumber;
             }
 
             var profit = sum - temp;
@@ -150,7 +152,7 @@ namespace BookStore
                 }
                 else
                 {
-                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("d/M/yyyy"), "shipping");
+                    _bus.insertPurchase(NameCustomer.Text, TelephoneCustomer.Text, AddressCustomer.Text, sum, profit, DateTime.Now.ToString("d/M/yyyy"), "shipping",sumBook);
                     int id = _bus.LastestPurchaseID();
                     foreach (var book in _saleList)
                     {

@@ -63,6 +63,9 @@ namespace BookStore.MyUserControl
                     updatePage();
                     _currentPage = 1;
                     updateData();
+                    numberOfOrderTextBlock.Text = "Số lượng đơn hàng: " + _bus.NumberOfOrder();
+                    updateMonth();
+                    updateWeek();
                 }
             }
            
@@ -92,6 +95,9 @@ namespace BookStore.MyUserControl
                     updatePage();
                     _currentPage = 1;
                     updateData();
+                    numberOfOrderTextBlock.Text = "Số lượng đơn hàng: " + _bus.NumberOfOrder();
+                    updateMonth();
+                    updateWeek();
                 }
                 else
                 {
@@ -132,10 +138,11 @@ namespace BookStore.MyUserControl
                 var _bus = new Business(dao);
 
                 // hiển thị số lượng order
-                numberOfOrderTextBlock.Text = "Số lượng đơn hàng: " + _bus.NumberOfOrder();
+                numberOfOrderTextBlock.Text = "Tổng số lượng đơn hàng: " + _bus.NumberOfOrder();
 
                 _list = _bus.ReadAllPurchase();
-                orderComboBox.ItemsSource = _list;
+                    updateMonth();
+                    updateWeek();
                 calcPage();
                 updatePage();
                 _currentPage = 1;
@@ -152,6 +159,65 @@ namespace BookStore.MyUserControl
             Window window = Window.GetWindow(this);
             window.Closing += window_Closing;
         }
+        public string GetCurentDayOfTheWeek()
+        {
+            return DateTime.Now.ToString("dddd");
+        }
+        void updateWeek()
+        {
+            var DayoftheWeek = new Dictionary<string, int>();
+            DayoftheWeek.Add("Monday", 1);
+            DayoftheWeek.Add("Tuesday", 2);
+            DayoftheWeek.Add("Wednesday", 3);
+            DayoftheWeek.Add("Thursday", 4);
+            DayoftheWeek.Add("Friday", 5);
+            DayoftheWeek.Add("Saturday", 6);
+            DayoftheWeek.Add("Sunday", 7);
+            var Week03_end = DateTime.Now.AddDays(-DayoftheWeek[GetCurentDayOfTheWeek()]);
+            var Week04_start = Week03_end.AddDays(1);
+            var Week04_end = DateTime.Now;
+
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                var _bus = new Business(dao);
+                List<string> _dates = _bus.getAllPurchaseDay();
+                var sum = 0;
+                for (int i = 0; i < _dates.Count; ++i)
+                {
+                    if ((checkAfter(_dates[i], Week04_start.ToString("d/M/yyyy")) || _dates[i] == Week04_start.ToString("d/M/yyyy")) && (!checkAfter(_dates[i], Week04_end.ToString("d/M/yyyy"))))
+                    {
+                        sum+=1;
+                    }
+                }
+                numberOfOrderWeekTextBlock.Text = "Tuần này:" + sum;
+
+            }
+        }
+        void updateMonth()
+        {
+            string? connectionString = AppConfig.ConnectionString();
+            var dao = new SqlDataAccess(connectionString!);
+            if (dao.CanConnect())
+            {
+                dao.Connect();
+                // Thao tác với CSDL ở đây
+                var _bus = new Business(dao);
+                _list = _bus.ReadAllPurchase();
+                var month = 0;
+                foreach (var purchase in _list)
+                {
+                    if (getMonth(purchase.date) == getMonth(DateTime.Now.ToString("d/M/yyyy")))
+                    {
+                        month += 1;
+                    }
+                }
+                numberOfOrderMonthTextBlock.Text = "Tháng này: " + month;
+            }
+        }
+
         void window_Closing(object sender, global::System.ComponentModel.CancelEventArgs e)
         {
             AppConfig.SetValue(AppConfig.Page, "1");
@@ -250,5 +316,121 @@ namespace BookStore.MyUserControl
 
 
         }
+
+        private void pickStartingDate_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new PickDateWindow();
+            if (screen.ShowDialog() == true)
+            {
+                string date = screen.PickedDate;
+                StartDate.Content = date;
+            }
+        }
+
+        private void pickEndingDate_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new PickDateWindow();
+            if (screen.ShowDialog() == true)
+            {
+                string date = screen.PickedDate;
+                EndDate.Content = date;
+            }
+        }
+
+        private void searchDateClick(object sender, RoutedEventArgs e)
+        {
+            var startDate = StartDate.Content.ToString();
+            var endDate = EndDate.Content.ToString();
+            if (startDate != "N/A" && endDate != "N/A")
+            {
+                if (checkAfter(startDate, endDate) == true)
+                {
+                    MessageBox.Show("The starting date must be before the ending date");
+                }
+                else {
+                    string? connectionString = AppConfig.ConnectionString();
+                    var dao = new SqlDataAccess(connectionString!);
+                    if (dao.CanConnect())
+                    {
+                        dao.Connect();
+                        // Thao tác với CSDL ở đây
+                        var _bus = new Business(dao);
+                        BindingList<Purchase> _dates = _bus.ReadAllPurchase();
+                        BindingList<Purchase> _validDates = new BindingList<Purchase>();
+                        for (int i = 0; i < _dates.Count; ++i)
+                        {
+                            if ((checkAfter(_dates[i].date, startDate) || _dates[i].date == startDate) && (!checkAfter(_dates[i].date, endDate)))
+                            {
+                                _validDates.Add(_dates[i]);
+                            }
+                        }
+                        _list = _validDates;
+                        orderComboBox.ItemsSource = _list;
+                        calcPage();
+                        updatePage();
+                        _currentPage = 1;
+                        updateData();
+                    }
+                 }
+            }
+            else {
+                MessageBox.Show("Please Pick Dates");
+            }
+        }
+        public int getDay(string year)
+        {
+            string[] list = year.Split('/');
+            return int.Parse(list[0]);
+        }
+
+        public int getMonth(string year)
+        {
+            string[] list = year.Split('/');
+            return int.Parse(list[1]);
+        }
+
+        public int getYear(string year)
+        {
+            string[] list = year.Split('/');
+            return int.Parse(list[2]);
+        }
+
+
+        public bool checkAfter(string checkingYear, string MileStone)
+        {
+            if (getYear(checkingYear) > getYear(MileStone))
+            {
+                return true;
+            }
+            else if (getYear(checkingYear) == getYear(MileStone))
+            {
+                if (getMonth(checkingYear) > getMonth(MileStone))
+                {
+                    return true;
+                }
+                else if (getMonth(checkingYear) == getMonth(MileStone))
+                {
+                    if (getDay(checkingYear) > getDay(MileStone))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false; // equal is still false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+       
     }
 }
