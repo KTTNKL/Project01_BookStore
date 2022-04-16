@@ -32,7 +32,7 @@ namespace BookStore.Database
         }
         public void insertPurchase(string customer_name, string customer_tel, string customer_address, int total, int profit, string date, string status)
         {
-            _dao.insertPurchaseRecord(customer_name, customer_tel, customer_address, total,profit, date, status);
+            _dao.insertPurchaseRecord(customer_name, customer_tel, customer_address, total, profit, date, status);
         }
         public int getCategoryID(string category_name)
         {
@@ -178,14 +178,23 @@ namespace BookStore.Database
             _dao.updateStatusOrder(id, status);
         }
 
-        public void insertPurchaseDetailRecord(int purchase_id, int book_id, int quantity, int price, int total_price) {
+        public void insertPurchaseDetailRecord(int purchase_id, int book_id, int quantity, int price, int total_price)
+        {
             _dao.insertPurchaseDetailRecord(purchase_id, book_id, quantity, price, total_price);
         }
-      
+
         public int NumberOfOrder()
         {
             return _dao.NumberOfOrder();
         }
+        public int AnnualBookCount(string year)
+        {
+            return _dao.AnnualBookCount(year);
+        }
 
+        public int MonthlyBookCount(string month, string year)
+        {
+            return _dao.MonthlyBookCount(month, year);
+        }
     }
 }
