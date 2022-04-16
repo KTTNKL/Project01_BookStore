@@ -80,7 +80,7 @@ namespace BookStore
             }
             else
             {
-                MessageBox.Show("Wrong passwork. Cannot connect to db");
+                MessageBox.Show("Wrong password. Cannot connect to db");
             }
            
         }

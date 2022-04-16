@@ -75,9 +75,9 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-        <TextBlock Text="From:" Canvas.Left="382" Canvas.Top="14" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
+        <TextBlock Text="From:" Canvas.Left="349" Canvas.Top="14" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
         <TextBlock Text="To:" Canvas.Left="523" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium"></TextBlock>
-        <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="668" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+        <Button Name="checkButton" Content="Date-Date Sales" Width="100" Height="50" Click="check_Click" Canvas.Left="593" Canvas.Top="14" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -99,7 +99,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Name="PickStartButton" Content="Pick Date" Width="80" Height="20" Click="pickStartingDate_Click" Canvas.Left="382" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+        <Button Name="PickStartButton" Content="Pick Date" Width="80" Height="20" Click="pickStartingDate_Click" Canvas.Left="349" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -121,7 +121,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Name="PickEndButton" Content="Pick Date" Width="80" Height="20" Click="pickEndingDate_Click" Canvas.Left="523" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+        <Button Name="PickEndButton" Content="Pick Date" Width="80" Height="20" Click="pickEndingDate_Click" Canvas.Left="491" Canvas.Top="44" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -143,9 +143,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label x:Name="StartDate" Content="N/A" Canvas.Left="420" Canvas.Top="9"  Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
-        <Label x:Name="EndDate" Content="N/A" Canvas.Left="556" Canvas.Top="9" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
-        <Label Content="-" Canvas.Left="503" Canvas.Top="9" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label x:Name="StartDate" Content="N/A" Canvas.Left="385" Canvas.Top="9"  Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label x:Name="EndDate" Content="N/A" Canvas.Left="515" Canvas.Top="9" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
+        <Label Content="-" Canvas.Left="471" Canvas.Top="10" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"></Label>
         <Grid Name="Chart" Height="384" Width="745" Canvas.Left="23" Canvas.Top="131"></Grid>
 
         <Label Content="Number of sold books:" Canvas.Top="72" Foreground="Black" FontFamily="Fonts/#Dosis" FontWeight="Medium"/>
@@ -218,7 +218,7 @@
             </Button.Template>
         </Button>
 
-        <Button Name="datedateBookButton" Content="Date-Date" Width="80" Height="20" Click="datedateBooks_Click" Canvas.Left="678" Canvas.Top="96" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+        <Button Name="datedateBookButton" Content="Date-Date" Width="80" Height="20" Click="datedateBooks_Click" Canvas.Left="603" Canvas.Top="96" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -234,6 +234,28 @@
 
             <Button.Template>
                 <ControlTemplate TargetType="Button">
+                    <Border Width="80" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="LogoutButton" Content="LOG OUT" Width="80" Height="20" Click="logout_Click" Canvas.Left="706" Canvas.Top="10" Foreground="White" FontFamily="Fonts/#Dosis" FontWeight="Medium">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="red"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border Width="80" Height="20" CornerRadius="5" Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>

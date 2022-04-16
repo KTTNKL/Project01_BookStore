@@ -187,11 +187,8 @@ C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\BookStore.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\ref\BookStore.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\BookStore.pdb
-C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\ControlzEx.dll
-C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\Fluent.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\LiveCharts.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\LiveCharts.Wpf.dll
-C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\Microsoft.Xaml.Behaviors.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
 C:\Users\Ky Luong\Documents\GitHub\Project01_BookStore\BookStore\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
