@@ -30,9 +30,9 @@ namespace BookStore.Database
         {
             _dao.insertBookRecord(name, author, year, cover, buying, selling, stock, sold, category);
         }
-        public void insertPurchase(string customer_name, string customer_tel, string customer_address, int total, int profit, string date, string status)
+        public void insertPurchase(string customer_name, string customer_tel, string customer_address, int total, int profit, string date, string status, int sumBook)
         {
-            _dao.insertPurchaseRecord(customer_name, customer_tel, customer_address, total, profit, date, status);
+            _dao.insertPurchaseRecord(customer_name, customer_tel, customer_address, total,profit, date, status, sumBook);
         }
         public int getCategoryID(string category_name)
         {
