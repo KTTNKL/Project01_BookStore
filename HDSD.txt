@@ -1,0 +1,56 @@
+Hướng dẫn sử dụng:
+1/ Tạo database(BookStore) với script (Tài khoản: admin, mật khẩu: 1234) đã cung cấp. 
+Ngoài ra có thể tự tạo thêm các tài khoản login có thể truy cập vào được vào BookStore
+
+2/ Login
+Login với tài khoản và mật khẩu truy cập vào được BookStore
+
+3/ Tab Master Data
++ Import Excel: Dùng để import data trong file excel vào database
++ Add category: Dùng để thêm một loại sách mới
++ Delete category: Dùng để xóa một loại sách đã có 
+(các sách tương ứng loại đó sẽ có loại sách là null)
++ Update category: Cập nhật tên của một loại sách
++ Add book: Dùng để thêm một cuốn sách mới
++ Reset: Dùng để update lại dữ liệu hiển thị trên ứng dụng
++ Top 5 sản phẩm hết hàng: Hiển thị danh sách 5 sản phẩm hết hàng nhiều nhất
++ Danh sách sản phẩm hết hàng: Hiển thị danh sách toàn bộ sản phẩm hết hàng
++ Tìm sách: Tìm kiếm theo tên sách
++ Tìm theo giá: Tìm kiếm theo giá của sách
++ Thể loại: Dropdown chọn loại sách
++ Số trang: chọn số sách sẽ hiển thị trong một trang
++ Table: Bảng hiện thị sách
++ Delete/Edit/Detail: Chọn một dòng trong bảng và tùy chọn các nút để 
+xóa/sửa/xem chi tiết sách
++ Nút "<" và ">": Dùng để chuyển qua lại giữa các trang. 
+Dropdown ở giữa để chọn chính xác một trang
+
+4/ Tab Sale
++ View detail: Chọn một dòng trong bảng và nhấn nút để có thể 
+xem chi tiết danh sách sản phẩm trong đơn hàng
++ New order: Tạo một đơn hàng mới
+	Nhập đầy đủ thông tin
+	Có thể dùng tìm kiếm theo tên sách để truy cập nhanh một sách
+	Click chọn sách và chuột phải để thêm sách
+	Click chọn sách đã thêm và chuột phải để xóa sách ra khỏi đơn hoặc sửa số lượng
++ Delete oder: Chọn một dòng trong bảng và nhấn nút để xóa một đơn hàng
++ Pick date: Chọn từ ngày... đến ngày... 
+=> Chọn nút Search Date để xem các đơn hàng từ ngày đến ngày
++ Nút "<" và ">": Dùng để chuyển qua lại giữa các trang. 
+Dropdown ở giữa để chọn chính xác một trang
+
+5/ Tab Report:
++ Weekly/Monthly/Annual Sales: dùng để xem thống kê doanh thu/ lợi nhuận theo tuần/tháng/năm
++ Weekly/Monthly/Annual: dùng để xem thống số lượng bán theo tuần/tháng/năm
++ Pick date: Chọn từ ngày... đến ngày... 
+=> Chọn nút Date-Date sales để xem thống kê doanh thu/ lợi nhuận từ ngày đến ngày
+=> Chọn nút Date-Date để xem thống kê số lượng bán từ ngày đến ngày
++ Log out: Đăng xuất khỏi tài khoản hiện tại
+
+
+
+
+
+
+
+

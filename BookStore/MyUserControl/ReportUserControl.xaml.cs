@@ -691,5 +691,15 @@ namespace BookStore.MyUserControl
                 MessageBox.Show("Please Pick Dates");
             }
         }
+
+        private void logout_Click(object sender, RoutedEventArgs e)
+        {
+            AppConfig.SetValue(AppConfig.Status, "Logout");
+            var screen = new LoginScreen();
+
+            screen.Show();
+            Window window = Window.GetWindow(this);
+            window.Close();
+        }
     }
 }
