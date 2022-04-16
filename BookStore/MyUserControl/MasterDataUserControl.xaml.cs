@@ -579,8 +579,8 @@ namespace BookStore.MyUserControl
 
 
             }
-            _bus.deleteTable("Book");
-            _bus.deleteTable("Category");
+            //_bus.deleteTable("Book");
+            //_bus.deleteTable("Category");
 
             for (int i = 0; i < _categories.Count(); i++)
             {
